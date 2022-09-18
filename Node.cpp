@@ -147,6 +147,60 @@ void josephus(LinkList& L,int n, int k, int m) {
 	}
 }
 
-void initDList(LinkList& L) {
+void initDList(DLinkList& L) {
+	L = (DLinkList)malloc(sizeof(DNode));
+	if (!L) {
+		cout << "init error";
+		return;
+	}
+	L->data = 0;
+	L->next = L;
+	L->front = L;
+}
 
+void insertDList(DLinkList& L, int n, int e) {
+	DLinkList p = L, t;
+	for (int i = 0; i < n; i++) {
+		p = p->next;
+		if (!p)
+			return;
+	}
+	initDList(t);
+	t->data = e;
+	t->front = p->front;
+	p->front->next = t;
+	t->next = p;
+	p->front = t;
+}
+
+void insertDList(DLinkList& L, int e) {
+	DLinkList t;
+	initDList(t);
+	t->data = e;
+	t->front = L;
+	t->next = L->next;
+	L->next->front = t;
+	L->next = t;
+}
+
+void ListToString(DLinkList& L) {
+	DLinkList p = L;
+	while (p->next && p->next != L) {
+		p = p->next;
+		cout << p->data << " ";
+	}
+	cout << endl;
+}
+
+void deleteDList(DLinkList& L, int i) {
+	DLinkList p = L;
+	int k = 0;
+	while (p->next && k < i)
+	{
+		p = p->next; k++;
+	}
+	p->front->next = p->next;
+	if (p->next)
+		p->next->front = p->front;
+	free(p);
 }
