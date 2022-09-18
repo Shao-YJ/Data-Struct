@@ -31,13 +31,6 @@ typedef struct DNode {
 	struct DNode* front;
 	int data;
 	struct DNode* next;
-}DNode,*DLinkList;
+};
 
-void initDList(DLinkList& L);
-
-void insertDList(DLinkList& L, int n, int e);
-void insertDList(DLinkList& L, int e);
-
-void ListToString(DLinkList& L);
-
-void deleteDList(DLinkList& L, int i);
+void initDList(LinkList& L);
