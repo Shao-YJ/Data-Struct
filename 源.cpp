@@ -1,7 +1,7 @@
 #include<iostream>
 #include<stdlib.h>
-#include"mlist.h"
-#include"Node.h"
+#include"MList.h"
+#include"LinkList.h"
 using namespace std;
 
 int main() {

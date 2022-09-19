@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "LinkList.h"
 
 void initList(LinkList &L) {
 	L = (LinkList)malloc(sizeof(Node));
