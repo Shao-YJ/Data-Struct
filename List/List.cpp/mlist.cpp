@@ -1,4 +1,4 @@
-#include "Mlist.h"
+#include "../List.h/Mlist.h"
 
 void initMlist(Mlist &L, int length) {
 	L.elem = (int*)malloc(length * sizeof(int));

@@ -1,4 +1,4 @@
-#include"Stack.h"
+#include"../List.h/Stack.h"
 
 void initStack(Stack& S,int n) {
 	S.base = (int*)malloc(n*sizeof(int));

@@ -24,33 +24,33 @@
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.cpp">
+    <ClCompile Include="List\List.cpp\LinkList.cpp">
       <Filter>源文件\LIst</Filter>
     </ClCompile>
-    <ClCompile Include="queue.cpp">
+    <ClCompile Include="List\List.cpp\mlist.cpp">
       <Filter>源文件\LIst</Filter>
     </ClCompile>
-    <ClCompile Include="LinkList.cpp">
+    <ClCompile Include="List\List.cpp\queue.cpp">
       <Filter>源文件\LIst</Filter>
     </ClCompile>
-    <ClCompile Include="MList.cpp">
+    <ClCompile Include="List\List.cpp\Stack.cpp">
       <Filter>源文件\LIst</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MList.h">
-      <Filter>头文件\List</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkList.h">
-      <Filter>头文件\List</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>头文件\List</Filter>
-    </ClInclude>
     <ClInclude Include="std.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
+    <ClInclude Include="List\List.h\LinkList.h">
+      <Filter>头文件\List</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List.h\mlist.h">
+      <Filter>头文件\List</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List.h\Queue.h">
+      <Filter>头文件\List</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List.h\Stack.h">
       <Filter>头文件\List</Filter>
     </ClInclude>
   </ItemGroup>

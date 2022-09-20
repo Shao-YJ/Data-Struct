@@ -1,4 +1,4 @@
-#include"Queue.h"
+#include"../List.h/Queue.h"
 
 void initQueue(Queue& Q,int n) {
 	Q.front = (int*)malloc(n * sizeof(int));

@@ -139,17 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MList.cpp" />
-    <ClCompile Include="LinkList.cpp" />
-    <ClCompile Include="queue.cpp" />
-    <ClCompile Include="Stack.cpp" />
+    <ClCompile Include="List\List.cpp\LinkList.cpp" />
+    <ClCompile Include="List\List.cpp\mlist.cpp" />
+    <ClCompile Include="List\List.cpp\queue.cpp" />
+    <ClCompile Include="List\List.cpp\Stack.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MList.h" />
-    <ClInclude Include="LinkList.h" />
-    <ClInclude Include="Queue.h" />
-    <ClInclude Include="Stack.h" />
+    <ClInclude Include="List\List.h\LinkList.h" />
+    <ClInclude Include="List\List.h\mlist.h" />
+    <ClInclude Include="List\List.h\Queue.h" />
+    <ClInclude Include="List\List.h\Stack.h" />
     <ClInclude Include="std.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,7 +3,7 @@
 #include<stdlib.h>
 using namespace std;
 
-#include"LinkList.h"
-#include"MList.h"
-#include"Stack.h"
-#include"Queue.h"
+#include"./List/List.h/LinkList.h"
+#include"./List/List.h/MList.h"
+#include"./List/List.h/Stack.h"
+#include"./List/List.h/Queue.h"

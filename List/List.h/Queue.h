@@ -1,5 +1,5 @@
 #pragma once
-#include"std.h"
+#include"../../std.h"
 
 typedef struct Queue {
 	int* front;
