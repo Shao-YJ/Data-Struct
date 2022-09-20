@@ -1,6 +1,6 @@
 #pragma once
-#include<iostream>
-using namespace std;
+#include"std.h"
+
 
 typedef struct Node{
 	int data;

@@ -19,23 +19,27 @@ void MlisttoString(Mlist L) {
 
 void insertMlist(Mlist& L, int e)
 {
+	int* new_elem;
 	if (L.n == L.N)
 	{
-		L.elem = (int*)realloc(L.elem, 2 * L.N * sizeof(int));
-		if (!L.elem)
+		new_elem = (int*)realloc(L.elem, 2 * L.N * sizeof(int));
+		if (!new_elem)
 			return;
+		L.elem = new_elem;
 		L.N = 2 * L.N;
 	}
 	L.elem[L.n++] = e;
 }
 
 void insertMlist(Mlist& L, int i, int e) {
-	if(L.n==L.N)
+	int* new_elem;
+	if (L.n == L.N)
 	{
-		L.elem = (int*)realloc(L.elem, 2 * L.N * sizeof(int));
-		if (!L.elem)
+		new_elem = (int*)realloc(L.elem, 2 * L.N * sizeof(int));
+		if (!new_elem)
 			return;
-		L.N = 2 * L.N;	
+		L.elem = new_elem;
+		L.N = 2 * L.N;
 	}
 	for (int j = L.n; j >= i-1; j--)
 		L.elem[j + 1] = L.elem[j];

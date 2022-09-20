@@ -1,7 +1,5 @@
 #pragma once
-#include<iostream>
-#include<stdlib.h>
-using namespace std;
+#include"std.h"
 
 typedef struct{
 	int* elem;

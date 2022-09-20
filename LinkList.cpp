@@ -56,16 +56,7 @@ void ListToString(LinkList& L) {
 
 void insertNList(LinkList& L, int *a,int n) {
 	LinkList temp = L;
-	LinkList p;
 	for (int i = 0; i < n; i++) {
-		//p = (LinkList)malloc(sizeof(Node));
-		//if (!p)
-		//	return;
-		////cout << a[i];
-		//p->data = a[i];
-		//p->next = NULL;
-		//temp->next = p;
-		//temp = temp->next;
 		insertList(temp, a[i]);
 	}
 }
@@ -124,7 +115,7 @@ void circularMerge(LinkList& L, LinkList& R) {
 }
 
 void josephus(LinkList& L,int n, int k, int m) {
-	LinkList p=L,temp;
+	LinkList p=L,temp=NULL;
 	int i=0;
 	while (i < k) {
 		p = p->next;

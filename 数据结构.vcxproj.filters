@@ -13,24 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\List">
+      <UniqueIdentifier>{1ea7ee39-b119-4d72-b9a4-aa92fb893281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\LIst">
+      <UniqueIdentifier>{ab291f03-7b4a-44b0-8257-fa757226d035}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MList.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Stack.cpp">
+      <Filter>源文件\LIst</Filter>
+    </ClCompile>
+    <ClCompile Include="queue.cpp">
+      <Filter>源文件\LIst</Filter>
     </ClCompile>
     <ClCompile Include="LinkList.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\LIst</Filter>
+    </ClCompile>
+    <ClCompile Include="MList.cpp">
+      <Filter>源文件\LIst</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MList.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\List</Filter>
     </ClInclude>
     <ClInclude Include="LinkList.h">
+      <Filter>头文件\List</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>头文件\List</Filter>
+    </ClInclude>
+    <ClInclude Include="std.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>头文件\List</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
