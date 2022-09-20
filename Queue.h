@@ -14,3 +14,15 @@ void inQueue(Queue& Q, int e);
 int outQueue(Queue& Q);
 
 void queueToString(Queue Q);
+
+typedef struct QNode {
+	int data;
+	struct QNode* next;
+}QNode,*LinkQueue;
+
+void initQueue(LinkQueue& L,int e=NULL);
+
+void inQueue(LinkQueue& L,int e);
+int outQueue(LinkQueue& L);
+
+void queueToString(LinkQueue Q);

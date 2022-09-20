@@ -30,3 +30,37 @@ void queueToString(Queue Q) {
 	}
 	cout << endl;
 }
+
+void initQueue(LinkQueue &L,int e) {
+	L = (LinkQueue)malloc(sizeof(QNode));
+	if (!L)
+		return;
+	L->data = e;
+	L->next = NULL;
+}
+
+void inQueue(LinkQueue& L,int e) {
+	LinkQueue p = L,t;
+	while (p->next)
+		p = p->next;
+	initQueue(t, e);
+	p->next = t;
+}
+
+int outQueue(LinkQueue& L) {
+	LinkQueue p = L->next;
+	int n = p->data;
+	L->next = p->next;
+	free(p);
+	return n;
+}
+
+void queueToString(LinkQueue L) {
+	LinkQueue p = L->next;
+	while (p)
+	{
+		cout << p->data << " ";
+		p = p->next;
+	}
+	cout << endl;
+}
