@@ -15,6 +15,8 @@ int outQueue(Queue& Q);
 
 void queueToString(Queue Q);
 
+bool queueIsEmpty(Queue Q);
+
 typedef struct QNode {
 	int data;
 	struct QNode* next;

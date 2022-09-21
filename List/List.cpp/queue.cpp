@@ -31,6 +31,10 @@ void queueToString(Queue Q) {
 	cout << endl;
 }
 
+bool queueIsEmpty(Queue Q) {
+	return Q.front == Q.rear;
+}
+
 void initQueue(LinkQueue &L,int e) {
 	L = (LinkQueue)malloc(sizeof(QNode));
 	if (!L)

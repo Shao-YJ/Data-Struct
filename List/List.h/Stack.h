@@ -10,6 +10,7 @@ typedef struct Stack {
 void initStack(Stack& S,int n);
 int pop(Stack& S);
 void push(Stack& S,int e);
+bool stackIsEmpty(Stack S);
 void stackToString(Stack S);
 
 typedef struct SNode {

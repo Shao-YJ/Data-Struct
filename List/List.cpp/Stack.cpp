@@ -1,5 +1,6 @@
 #include"../List.h/Stack.h"
 
+//线性栈操作
 void initStack(Stack& S,int n) {
 	S.base = (int*)malloc(n*sizeof(int));
 	S.top = S.base;
@@ -23,6 +24,10 @@ int pop(Stack& S) {
 	else return NULL;
 }
 
+bool stackIsEmpty(Stack S) {
+	return S.top == S.base;
+}
+
 void stackToString(Stack S) {
 	int* p = S.base;
 	while (p<S.top)
@@ -32,6 +37,7 @@ void stackToString(Stack S) {
 	cout << endl;
 }
 
+//链栈操作
 void initLinkStack(LinkStack& L,int Data) {
 	L = (LinkStack)malloc(sizeof(SNode));
 	if (!L)
@@ -66,3 +72,5 @@ void stackToString(LinkStack L) {
 	}
 	cout << endl;
 }
+
+
