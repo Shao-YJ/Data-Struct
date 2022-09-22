@@ -25,9 +25,8 @@ void twoPair(int n) {
 	Queue sin, dou;
 	initQueue(sin,100);
 	initQueue(dou, 100);
-
+	srand(time(NULL));
 	for (i = 0; i < n; i++) {
-		srand(i);
 		p = rand() % 100 + 1;
 		if (p % 2)
 			inQueue(sin, p);
@@ -35,7 +34,33 @@ void twoPair(int n) {
 			inQueue(dou, p);
 	}
 	i = 1;
-	while (!queueIsEmpty(sin) && !queueIsEmpty(dou)) {
+	while (!IsEmpty(sin) && !IsEmpty(dou)) {
 		cout << "第" << i++ << "组:" << outQueue(sin) << " " << outQueue(dou) << endl;
+	}
+}
+
+//有两个进程同时存在于一个程序中。其中第一个进程在屏幕上连续显示字符“ - ”, 与此同时，
+//程序不断检测键盘是否有输入，如果有，就读入用户键入的字符并保存到输入缓冲区中。
+//在用户输入时，键入的字符并不立即回显在屏幕上。当用户键入一个逗号(, )时，表示第一个进程结束，
+//第二个进程从缓冲区中读取那些已键入的字符并显示在屏幕上。第二个进程结束后，程序又进入第一个进程，
+//重新显示字符“ - ”, 同时用户又可以继续键入字符，直到用户输入一个分号(;)键，才结束第一个进程，同时也结束整个程序。
+void twoProgress() {
+	char ch;
+	Squeue s;
+	while (true) {
+		if (_kbhit()) {
+			ch = _getch();
+			if (ch == *",") {
+				while (!IsEmpty(s)) {
+					cout << (char)outQueue(s);
+				}
+				continue;
+			}
+			inQueue(s, ch);
+			if (ch == *";")
+				break;
+		}
+		Sleep(100);
+		cout << "-";
 	}
 }

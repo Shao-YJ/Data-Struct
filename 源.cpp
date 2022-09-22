@@ -2,8 +2,9 @@
 
 int main() {
 
-	cout << 1;
-	twoPair(100);
+	Squeue s;
+	
+	twoProgress();
 
 	return 0;
 }

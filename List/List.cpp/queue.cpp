@@ -21,6 +21,7 @@ void inQueue(Queue& Q, int e) {
 int outQueue(Queue& Q) {
 	if (Q.rear != Q.front)
 		return *Q.front++;
+	return NULL;
 }
 
 void queueToString(Queue Q) {
@@ -31,7 +32,7 @@ void queueToString(Queue Q) {
 	cout << endl;
 }
 
-bool queueIsEmpty(Queue Q) {
+bool IsEmpty(Queue Q) {
 	return Q.front == Q.rear;
 }
 
@@ -67,4 +68,39 @@ void queueToString(LinkQueue L) {
 		p = p->next;
 	}
 	cout << endl;
+}
+
+void inQueue(Squeue &S,int e) {
+	if (IsFull(S)) {
+		cout << "Queue is full!" << endl;
+		return;
+	}
+	S.elem[S.rear] = e;
+	S.rear = (S.rear + 1) % MAXSIZE;
+}
+
+int outQueue(Squeue& S) {
+	if (IsEmpty(S))
+		return NULL;
+	int n = S.elem[S.front];
+	S.front = (S.front + 1) % MAXSIZE;
+	return n;
+}
+
+void queueToString(Squeue S) {
+	int front = S.front;
+	int rear = S.rear;
+	while (front != rear) {
+		cout << S.elem[front] << " ";
+		front = (front + 1) % MAXSIZE;
+	}
+	cout << endl;
+}
+
+bool IsEmpty(Squeue S) {
+	return S.rear == S.front;
+}
+
+bool IsFull(Squeue S) {
+	return (S.rear + 1) % MAXSIZE == S.front;
 }

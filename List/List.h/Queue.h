@@ -1,6 +1,8 @@
 #pragma once
 #include"../../std.h"
 
+#define MAXSIZE 100
+
 typedef struct Queue {
 	int* front;
 	int* rear;
@@ -15,7 +17,7 @@ int outQueue(Queue& Q);
 
 void queueToString(Queue Q);
 
-bool queueIsEmpty(Queue Q);
+bool IsEmpty(Queue Q);
 
 typedef struct QNode {
 	int data;
@@ -28,3 +30,15 @@ void inQueue(LinkQueue& L,int e);
 int outQueue(LinkQueue& L);
 
 void queueToString(LinkQueue Q);
+
+typedef struct Squeue {
+	int elem[MAXSIZE] = {};
+	int front=0;
+	int rear=0;
+}Squeue;
+
+void inQueue(Squeue &S,int e);
+int outQueue(Squeue &S);
+void queueToString(Squeue S);
+bool IsEmpty(Squeue S);
+bool IsFull(Squeue S);
