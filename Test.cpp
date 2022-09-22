@@ -2,20 +2,20 @@
 
 
 //输入10进制数n，输出d进制数。
-int _10toN(int e, int n) {
-	int p = 0;
-	Stack s;
-	initStack(s, 10);
-
-	while (e) {
-		push(s, e % n);
-		e /= n;
-	}
-	while (!stackIsEmpty(s)) {
-		p = p * 10 + pop(s);
-	}
-	return p;
-}
+//int _10toN(int e, int n) {
+//	int p = 0;
+//	Stack<int> s;
+//	initStack(s, 10);
+//
+//	while (e) {
+//		push(s, e % n);
+//		e /= n;
+//	}
+//	while (!stackIsEmpty(s)) {
+//		p = p * 10 + pop(s);
+//	}
+//	return p;
+//}
 
 //先产生n个[1，100]之间的随机整数，然后按照数的产生顺序依次配对输出奇数和偶数
 //(即一次输出1个奇数和1个偶数)，直到奇数或者偶数输出完毕为止。
