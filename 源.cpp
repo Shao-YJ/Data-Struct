@@ -2,10 +2,8 @@
 
 int main() {
 
-	LinkStack<int> link;
+	labyrinth(8,8);
 
-	Stack<int> s1;
-	initStack(s1, 10);
 
 	return 0;
 }

@@ -142,7 +142,6 @@
     <ClCompile Include="List\List.cpp\LinkList.cpp" />
     <ClCompile Include="List\List.cpp\Mlist.cpp" />
     <ClCompile Include="List\List.cpp\Queue.cpp" />
-    <ClCompile Include="List\List.cpp\Stack.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>

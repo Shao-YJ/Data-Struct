@@ -51,11 +51,14 @@ void stackToString(Stack<T> S) {
 	cout << endl;
 }
 
-//Á´Õ»²Ù×÷
+
+
+//------Á´Õ»²Ù×÷------
 template <typename T>
 class SNode {
 public:
-	SNode(T Data=NULL);
+	SNode();
+	SNode(T Data);
 	T data;
 	SNode<T>* next;
 };
@@ -63,15 +66,20 @@ public:
 template <typename T>
 class LinkStack {
 public:
-	LinkStack(){};
-	LinkStack(int size,T Data);
-	void m_push(int e);
+	LinkStack();
+	void push(T e);
+	T pop();
+	void toString();
+	bool isEmpty();
 private:
 	SNode<T> head;
-	int stacksize;
 };
 
-//Á´Õ»²Ù×÷
+template<class T>
+SNode<T>::SNode() {
+	this->next = NULL;
+}
+
 template<class T>
 SNode<T>::SNode(T Data) {
 	this->next = NULL;
@@ -79,28 +87,42 @@ SNode<T>::SNode(T Data) {
 }
 
 template<class T>
-LinkStack<T>::LinkStack(int size, T Data) {
-	SNode<T> p(Data);
-	this->stacksize = size;
+LinkStack<T>::LinkStack() {
+	SNode<T> p;
+	this->head = p;
 }
 
 template<typename T>
-void LinkStack<T>::m_push(int e)
-{
-	SNode<T>* p = new SNode<T>;
+void LinkStack<T>::push(T e){
+	SNode<T>* p = new SNode<T>(e);
 	p->data = e;
 	p->next = this->head.next;
 	this->head.next = p;
 }
 
+template<typename T>
+T LinkStack<T>::pop() {
+	SNode<T>* p = this->head.next;
+	this->head.next = p->next;
+	T data = p->data;
+	free(p);
+	return data;
+}
 
+template<typename T>
+void LinkStack<T>::toString() {
+	SNode<T>* p = this->head.next;
+	while (p) {
+		cout << p->data << " ";
+		p = p->next;
+	}
+	cout << endl;
+}
 
-//
-//template <typename T>
-//void push(*SNode<T>& L, T e);
-//
-//template <typename T>
-//T pop(*SNode<T>& L);
-//
-//template <typename T>
-//void stackToString(*SNode<T> L);
+template<typename T>
+bool LinkStack<T>::isEmpty() {
+	if (!this->head.next)
+		return false;
+	else
+		return true;
+}
