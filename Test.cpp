@@ -60,12 +60,16 @@ void labyrinth(int m,int n) {
 	typedef struct Site {
 		int x;
 		int y;
-		int next;
+		int count;
 	public:
 		Site(int i, int j) {
-			x = i; y = j; next = 2;
+			x = i; y = j; count = 0;
 		}
-		Site(){}
+		Site() {}
+		void add() {
+			count++;
+		}
+
 	}Site;
 
 	int i, j;
@@ -91,7 +95,7 @@ void labyrinth(int m,int n) {
 	i = 1, j = 1;
 	int k,time=0;
 	Site s(1, 1),temp;
-	link.push(Site(1,1));
+	//link.push(Site(1,1));
 	while (i + j) {
 		k = 0;
 		if (i == m && j == n)k = 9;
@@ -105,17 +109,20 @@ void labyrinth(int m,int n) {
 		case 0:
 			Map[i][j] = -1;
 			temp = link.pop(); i = temp.x; j = temp.y;  break;
-		case 2:link.push(Site(i, ++j)); Map[i][j] = 2; break;
-		case 3:link.push(Site(++i, j)); Map[i][j] = 2; break;
-		case 4:link.push(Site(i, --j)); Map[i][j] = 2; break;
-		case 5:link.push(Site(--i, j)); Map[i][j] = 2; break;
+		case 2:link.push(Site(i, j)); Map[i][j++] = 2; break;
+		case 3:link.push(Site(i, j)); Map[i++][j] = 2; break;
+		case 4:link.push(Site(i, j)); Map[i][j--] = 2; break;
+		case 5:link.push(Site(i, j)); Map[i--][j] = 2; break;
 		case 6:cout << "Search Failed" << endl; return;
-		case 9:cout << "Successful Serach,The Route is:" << endl; i = 0; j = 0; break;
+		case 9:link.push(Site(i, j));
+			cout << "Successful Serach,The Route is:" << endl; i = 0; j = 0; break;
 		}
 	}
+	temp = link.pop();
+	cout << "(" << temp.x << "," << temp.y << ")";
 	while (link.isEmpty()) {
 		temp = link.pop();
-		cout << "(" << temp.x << "," << temp.y << ")<--";
+		cout << "<--(" << temp.x << "," << temp.y << ")";
 	}
 
 }
