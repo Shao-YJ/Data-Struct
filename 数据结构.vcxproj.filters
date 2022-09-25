@@ -27,7 +27,7 @@
     <ClCompile Include="List\List.cpp\LinkList.cpp">
       <Filter>源文件\LIst</Filter>
     </ClCompile>
-    <ClCompile Include="List\List.cpp\Mlist.cpp">
+    <ClCompile Include="List\List.cpp\MList.cpp">
       <Filter>源文件\LIst</Filter>
     </ClCompile>
     <ClCompile Include="List\List.cpp\Queue.cpp">
@@ -44,7 +44,7 @@
     <ClInclude Include="List\List.h\LinkList.h">
       <Filter>头文件\List</Filter>
     </ClInclude>
-    <ClInclude Include="List\List.h\Mlist.h">
+    <ClInclude Include="List\List.h\MList.h">
       <Filter>头文件\List</Filter>
     </ClInclude>
     <ClInclude Include="List\List.h\Queue.h">

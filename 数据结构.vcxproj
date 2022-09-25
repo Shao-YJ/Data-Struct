@@ -140,14 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="List\List.cpp\LinkList.cpp" />
-    <ClCompile Include="List\List.cpp\Mlist.cpp" />
+    <ClCompile Include="List\List.cpp\MList.cpp" />
     <ClCompile Include="List\List.cpp\Queue.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List\List.h\LinkList.h" />
-    <ClInclude Include="List\List.h\Mlist.h" />
+    <ClInclude Include="List\List.h\MList.h" />
     <ClInclude Include="List\List.h\Queue.h" />
     <ClInclude Include="List\List.h\Stack.h" />
     <ClInclude Include="std.h" />

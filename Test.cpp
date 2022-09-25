@@ -60,16 +60,13 @@ void labyrinth(int m,int n) {
 	typedef struct Site {
 		int x;
 		int y;
-		int count;
 	public:
 		Site(int i, int j) {
-			x = i; y = j; count = 0;
+			x = i; y = j; 
 		}
-		Site() {}
-		void add() {
-			count++;
+		Site() {
+			x = 0; y = 0;
 		}
-
 	}Site;
 
 	int i, j;
@@ -93,9 +90,8 @@ void labyrinth(int m,int n) {
 
 	LinkStack<Site>  link;
 	i = 1, j = 1;
-	int k,time=0;
+	int k;
 	Site s(1, 1),temp;
-	//link.push(Site(1,1));
 	while (i + j) {
 		k = 0;
 		if (i == m && j == n)k = 9;
@@ -120,9 +116,40 @@ void labyrinth(int m,int n) {
 	}
 	temp = link.pop();
 	cout << "(" << temp.x << "," << temp.y << ")";
-	while (link.isEmpty()) {
+	while (!link.isEmpty()) {
 		temp = link.pop();
 		cout << "<--(" << temp.x << "," << temp.y << ")";
 	}
 
+}
+
+void bracketMatch() {
+	MList<char> p(100);
+	cin >> p;
+	p.n = strlen(p.elem);
+	LinkStack<char> chstack;
+	char ch,temp;
+	int i, n = p.n;
+	for (i = 0; i < n; i++)
+	{
+		ch = p.elem[i];
+		if (ch == *"[" || ch == *"{"||ch==*"(")
+			chstack.push(ch);
+		if (ch == *"]" || ch == *"}" || ch == *")")
+		{
+			temp = chstack.pop();
+			switch (temp) {
+			case * "[":if (ch == *"]")break;
+			case * "{":if (ch == *"}")break;
+			case * "(":if (ch == *")")break;
+			default:cout << "The expression is invalid." << endl; return;
+			}
+		}
+	}
+	if (i == n && !chstack.isEmpty())
+	{
+		cout << "The expression is invalid." << endl;
+		return;
+	}
+	cout << "The bracket is match!" << endl;
 }

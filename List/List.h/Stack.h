@@ -102,6 +102,8 @@ void LinkStack<T>::push(T e){
 
 template<typename T>
 T LinkStack<T>::pop() {
+	if (this->isEmpty())
+		cout<<"The stakc is empty.";
 	SNode<T>* p = this->head.next;
 	this->head.next = p->next;
 	T data = p->data;
@@ -121,7 +123,7 @@ void LinkStack<T>::toString() {
 
 template<typename T>
 bool LinkStack<T>::isEmpty() {
-	if (!this->head.next)
+	if (this->head.next)
 		return false;
 	else
 		return true;

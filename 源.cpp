@@ -2,8 +2,8 @@
 
 int main() {
 
-	labyrinth(8,8);
-
-
+	bracketMatch();
+	
+	
 	return 0;
 }
