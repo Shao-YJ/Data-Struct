@@ -2,8 +2,7 @@
 
 int main() {
 
-	bracketMatch();
-	
-	
+	arthimetic();
+
 	return 0;
 }

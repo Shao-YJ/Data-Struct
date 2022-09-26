@@ -18,20 +18,18 @@ int _10toN(int e, int n) {
 void twoPair(int n) {
 	int i = 0;
 	int p;
-	Queue sin, dou;
-	initQueue(sin,100);
-	initQueue(dou, 100);
+	Queue<int> sin, dou;
 	srand((unsigned int)time(NULL));
 	for (i = 0; i < n; i++) {
 		p = rand() % 100 + 1;
 		if (p % 2)
-			inQueue(sin, p);
+			sin.push(p);
 		else
-			inQueue(dou, p);
+			dou.push(p);
 	}
 	i = 1;
-	while (!IsEmpty(sin) && !IsEmpty(dou)) {
-		cout << "第" << i++ << "组:" << outQueue(sin) << " " << outQueue(dou) << endl;
+	while (!sin.isEmpty() && !dou.isEmpty()) {
+		cout << "第" << i++ << "组:" << sin.pop() << " " << dou.pop() << endl;
 	}
 }
 
@@ -91,7 +89,7 @@ void labyrinth(int m,int n) {
 	LinkStack<Site>  link;
 	i = 1, j = 1;
 	int k;
-	Site s(1, 1),temp;
+	Site temp;
 	while (i + j) {
 		k = 0;
 		if (i == m && j == n)k = 9;
@@ -105,10 +103,10 @@ void labyrinth(int m,int n) {
 		case 0:
 			Map[i][j] = -1;
 			temp = link.pop(); i = temp.x; j = temp.y;  break;
-		case 2:link.push(Site(i, j)); Map[i][j++] = 2; break;
-		case 3:link.push(Site(i, j)); Map[i++][j] = 2; break;
-		case 4:link.push(Site(i, j)); Map[i][j--] = 2; break;
-		case 5:link.push(Site(i, j)); Map[i--][j] = 2; break;
+		case 2:link.push(Site(i, j)); Map[i][j++] = -1; break;
+		case 3:link.push(Site(i, j)); Map[i++][j] = -1; break;
+		case 4:link.push(Site(i, j)); Map[i][j--] = -1; break;
+		case 5:link.push(Site(i, j)); Map[i--][j] = -1; break;
 		case 6:cout << "Search Failed" << endl; return;
 		case 9:link.push(Site(i, j));
 			cout << "Successful Serach,The Route is:" << endl; i = 0; j = 0; break;
@@ -152,4 +150,97 @@ void bracketMatch() {
 		return;
 	}
 	cout << "The bracket is match!" << endl;
+}
+
+void arthimetic() {
+	MList<char> list(100);
+	LinkStack<char> stack;
+	Queue<char> queue;
+
+	cin >> list;
+	int n = strlen(list.elem);
+	int i = 0;
+	char ch,p;
+	while (i < n) {
+		ch = list.elem[i++];
+		if (ch >= 48 && ch <= 57) {
+			queue.push(ch);
+			continue;
+		}
+		else if (queue.top() >= 48 && queue.top() <= 57) {
+			queue.push(*" ");
+		}
+		if (ch == *"(") {
+			stack.push(ch);
+			continue;
+		}
+		if (ch == *"*" || ch == *"/") {
+			if (stack.isEmpty()){
+				stack.push(ch);
+				continue;
+			}
+			p = stack.top();
+			if (p == *"(" || p == *"+" || p == *"-")
+				stack.push(ch);
+			else
+			{
+				queue.push(stack.pop());
+				stack.push(ch);
+			}
+			continue;
+		}
+		if (ch == *"+" || ch == *"-") {
+			if (stack.isEmpty() || stack.top() == *"(")
+				stack.push(ch);
+			else {
+				while (!stack.isEmpty() && stack.top() != *"("){
+					queue.push(stack.pop());
+				}
+				stack.push(ch);
+			}
+			continue;
+		}
+		if (ch == *"#"&&i==n) {
+			while (!stack.isEmpty())
+				queue.push(stack.pop());
+			break;
+		}
+		else if(i==n){
+			cout << "The arthimetic is invalid!!!" << endl;
+			return;
+		}
+		while (ch == *")")
+		{
+			p = stack.pop();
+			if (p != *"(")
+				queue.push(p);
+			else
+				break;
+		}
+	}
+	queue.toString();
+
+	LinkStack<int> numStack;
+	while (!queue.isEmpty()) {
+		i = 0;
+		while (queue.head() >= 48 && queue.head() <= 57)
+		{
+			i = i * 10 + (int)(queue.pop()-48);
+		}
+		if (i) {
+			numStack.push(i);
+			continue;
+		}
+		ch = queue.pop();
+		int a = 0, b = 0,c=0;
+		switch (ch) {
+		case * " ":break;
+		case * "+":b = numStack.pop(); a = numStack.pop(); c = a + b; numStack.push(c); break;
+		case * "-":b = numStack.pop(); a = numStack.pop(); c = a - b; numStack.push(c); break;
+		case * "*":b = numStack.pop(); a = numStack.pop(); c = a * b; numStack.push(c); break;
+		case * "/":b = numStack.pop(); a = numStack.pop(); c = a / b; numStack.push(c); break;
+		default:cout << "No choice!" << endl; break;
+		}
+	}
+	cout << numStack.pop();
 }

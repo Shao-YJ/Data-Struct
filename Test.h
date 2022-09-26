@@ -23,3 +23,6 @@ void labyrinth(int m,int n);
 //而[(]) 或([()) 或(()]这类的括号匹配格式是不正确的
 //括号匹配算法
 void bracketMatch();
+
+//算术表达式求值
+void arthimetic();

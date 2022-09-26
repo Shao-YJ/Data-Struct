@@ -69,11 +69,19 @@ public:
 	LinkStack();
 	void push(T e);
 	T pop();
+	T top();
 	void toString();
 	bool isEmpty();
 private:
 	SNode<T> head;
 };
+
+template<class T>
+T LinkStack<T>::top() {
+	if (isEmpty())
+		return this->head.data;
+	return this->head.next->data;
+}
 
 template<class T>
 SNode<T>::SNode() {
@@ -103,7 +111,10 @@ void LinkStack<T>::push(T e){
 template<typename T>
 T LinkStack<T>::pop() {
 	if (this->isEmpty())
-		cout<<"The stakc is empty.";
+	{
+		cout << "The stakc is empty.";
+		return this->head.data;
+	}
 	SNode<T>* p = this->head.next;
 	this->head.next = p->next;
 	T data = p->data;
