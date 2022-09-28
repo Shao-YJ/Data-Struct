@@ -2,7 +2,9 @@
 
 int main() {
 
-	arthimetic();
+	//char x = *"x";
 
+	hanoi(*"x", 5, *"y", *"z");
+	
 	return 0;
 }

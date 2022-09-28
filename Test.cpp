@@ -244,3 +244,18 @@ void arthimetic() {
 	}
 	cout << numStack.pop();
 }
+
+void move(char x, int n, char z)
+{
+	cout << "将" << x << "柱上的第" << n << "块移动到" << z << "柱上" << endl;
+}
+
+void hanoi(char x, int n, char y, char z) {
+	if (n == 1)
+		move(x, n, z);
+	else {
+		hanoi(x, n - 1, z, y);
+		move(x, n, z);
+		hanoi(y, n - 1, x, z);
+	}
+}

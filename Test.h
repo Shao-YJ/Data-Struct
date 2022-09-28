@@ -26,3 +26,5 @@ void bracketMatch();
 
 //算术表达式求值
 void arthimetic();
+
+void hanoi(char x, int n, char y, char z);
