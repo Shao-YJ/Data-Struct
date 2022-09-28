@@ -28,3 +28,8 @@ void bracketMatch();
 void arthimetic();
 
 void hanoi(char x, int n, char y, char z);
+
+//背包问题
+//设有n个物品，每个物品的重量为wi, i = 1, 2, …, n。试从这n个物品中选取若干个，使其重量之和＝背包的容量T。
+void bag();
+void bag2();

@@ -2,9 +2,7 @@
 
 int main() {
 
-	//char x = *"x";
-
-	hanoi(*"x", 5, *"y", *"z");
+	bag2();
 	
 	return 0;
 }

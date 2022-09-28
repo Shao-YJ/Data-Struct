@@ -259,3 +259,37 @@ void hanoi(char x, int n, char y, char z) {
 		hanoi(y, n - 1, x, z);
 	}
 }
+
+bool Knapsack(int T, int n,int w[]) {
+	if (T == 0)return 1;
+	if (T < 0 || n < 1)return 0;
+	if (Knapsack(T - w[n - 1], n - 1, w)) {
+		cout << w[n - 1] << " "; return 1;
+	}
+	return Knapsack(T, n - 1,w);
+}
+
+void bag() {
+	int n = 7;
+	int w[7] = { 27,24,17,51,28,32,63, };
+	int T = 100;
+	Knapsack(T, n, w);
+}
+
+bool Knapsack2(int T, int i, int n, int w[]) {
+	if (T == 0)
+		return 1;
+	if (T < 0 || i >= n)return 0;
+	if (Knapsack2(T - w[i], i + 1, n, w)) {
+		cout << w[i] << " ";
+		return 1;
+	}
+	return Knapsack2(T,i+1,n,w);
+}
+
+void bag2() {
+	int n = 7;
+	int w[7] = { 27,24,17,51,28,32,63, };
+	int T = 100;
+	Knapsack2(T, 0, n, w);
+}
