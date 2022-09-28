@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MLIST_H
+#define _MLIST_H
 #include"../../std.h"
 
 typedef struct{
@@ -102,8 +103,4 @@ void MList<T>::del(int i) {
 	this->n--;
 }
 
-
-
-
-
-
+#endif

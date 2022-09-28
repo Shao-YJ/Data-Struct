@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _STACK_H
+#define _STACK_H
 #include"../../std.h"
 
 template <typename T>
@@ -139,3 +140,4 @@ bool LinkStack<T>::isEmpty() {
 	else
 		return true;
 }
+#endif

@@ -1,6 +1,6 @@
-#pragma once
+#ifndef _LINKLIST_H
+#define _LINKLIST_H
 #include"../../std.h"
-
 
 typedef struct Node{
 	int data;
@@ -27,6 +27,8 @@ void circularMerge(LinkList& L, LinkList& R);
 
 void josephus(LinkList& L, int n,int k, int m);
 
+void listReverse(LinkList L, LinkList& P);
+
 typedef struct DNode {
 	struct DNode* front;
 	int data;
@@ -41,3 +43,5 @@ void insertDList(DLinkList& L, int e);
 void ListToString(DLinkList& L);
 
 void deleteDList(DLinkList& L, int i);
+
+#endif

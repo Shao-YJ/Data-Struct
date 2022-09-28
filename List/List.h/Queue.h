@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _QUEUE_H
+#define _QUEUE_H
 #include"../../std.h"
 
 #define MAXSIZE 100
@@ -106,3 +107,4 @@ int outQueue(Squeue &S);
 void queueToString(Squeue S);
 bool IsEmpty(Squeue S);
 bool IsFull(Squeue S);
+#endif

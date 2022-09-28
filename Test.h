@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _TEST_H
+#define _TEST_H
+
 #include"std.h"
 
 //输入10进制数n，输出d进制数。
@@ -17,7 +19,7 @@ void twoProgress();
 
 //假设迷宫由m行n列构成，有一个入口(1, 1)和一个出口(m，n)。
 //试找出一条从入口通往出口的可行路径(如输出可通行路径方格的坐标序列)。
-void labyrinth(int m,int n);
+void labyrinth(int m, int n);
 
 //设在表达式中允许包含[]和()两种括号，约定([]())  或[([][])]这类的括号匹配格式是正确的，
 //而[(]) 或([()) 或(()]这类的括号匹配格式是不正确的
@@ -33,3 +35,7 @@ void hanoi(char x, int n, char y, char z);
 //设有n个物品，每个物品的重量为wi, i = 1, 2, …, n。试从这n个物品中选取若干个，使其重量之和＝背包的容量T。
 void bag();
 void bag2();
+
+void listReverse();
+
+#endif // !_TEST_H

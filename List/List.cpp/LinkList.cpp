@@ -138,6 +138,23 @@ void josephus(LinkList& L,int n, int k, int m) {
 	}
 }
 
+void listReverse(LinkList L, LinkList& P) {
+	LinkList p = L->next;
+	LinkList q = p->next;
+	LinkList t;
+
+	p->next = NULL;
+	while (q) {
+		t = q;
+		q = q->next;
+		t->next = p;
+		p = t;
+	}
+	L->next = p;
+	P = L;
+}
+
+//Ë«ÏòÁ´±í²Ù×÷
 void initDList(DLinkList& L) {
 	L = (DLinkList)malloc(sizeof(DNode));
 	if (!L) {
