@@ -2,14 +2,12 @@
 
 int main() {
 
-	LinkList L1, L2;
-	initList(L1);
-
-	int a[10] = { 1,5,6,3,4653,6543,7654,2,3,54 };
-	insertNList(L1, a, 10);
-	ListToString(L1);
-	listReverse(L1,L2);
-	ListToString(L2);
+	TMatrix<int> matrix(100, 100,0);
 	
+	matrix.push(Triple<int>(1, 32, 231));
+	matrix.push(Triple<int>(4, 2, 231));
+	matrix.push(Triple<int>(5, 1, 231));
+	matrix.push(Triple<int>(12, 3, 231));
+	matrix.toString();
 	return 0;
 }

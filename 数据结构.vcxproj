@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List\List.h\LinkList.h" />
+    <ClInclude Include="List\List.h\Matrix.h" />
     <ClInclude Include="List\List.h\MList.h" />
     <ClInclude Include="List\List.h\Queue.h" />
     <ClInclude Include="List\List.h\Stack.h" />
