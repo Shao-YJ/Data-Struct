@@ -81,7 +81,7 @@ template<class T>
 class GLNode {
 public:
 	GLNode(int type, T value);
-	GLNode(int type,GLNode *value)
+	GLNode(int type, GLNode* value);
 private:
 	int tag;/*  标志域，为1：表结点;为0 ：原子结点  */
 	union {

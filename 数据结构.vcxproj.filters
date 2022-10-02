@@ -62,5 +62,8 @@
     <ClInclude Include="List\List.h\Matrix.h">
       <Filter>头文件\List</Filter>
     </ClInclude>
+    <ClInclude Include="Tree\Tree.h">
+      <Filter>头文件\Tree</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
