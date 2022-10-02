@@ -19,6 +19,9 @@
     <Filter Include="源文件\LIst">
       <UniqueIdentifier>{ab291f03-7b4a-44b0-8257-fa757226d035}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Tree">
+      <UniqueIdentifier>{86e441f8-a732-4a07-bc71-3203cc2631ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
