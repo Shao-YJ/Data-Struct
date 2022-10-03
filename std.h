@@ -7,10 +7,11 @@
 #include<Windows.h>
 using namespace std;
 
-#include"./List/List.h/LinkList.h"
-#include"./List/List.h/MList.h"
-#include"./List/List.h/Stack.h"
-#include"./List/List.h/Queue.h"
-#include"./List/List.h/Matrix.h"
+#include"List/List.h/LinkList.h"
+#include"List/List.h/MList.h"
+#include"List/List.h/Stack.h"
+#include"List/List.h/Queue.h"
+#include"List/List.h/Matrix.h"
+#include"Tree/Tree.h"
 #include"Test.h"
 #endif // !_STD_H
