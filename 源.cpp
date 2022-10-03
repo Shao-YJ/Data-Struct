@@ -7,6 +7,6 @@ int main() {
 	cin >> str;
 	int k = 0;
 	t.create(str, k);
-
+	t.toString();
 	return 0;
 }
