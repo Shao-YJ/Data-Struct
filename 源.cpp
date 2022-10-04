@@ -8,5 +8,6 @@ int main() {
 	int k = 0;
 	t.create(str, k);
 	t.toString();
+	cout << t.depth();
 	return 0;
 }

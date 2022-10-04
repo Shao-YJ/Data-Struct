@@ -11,8 +11,10 @@ public:
 
 	BTree() { this->lc = this->rc = NULL; };
 	BTree(T e);
-	void create(string str,int &k);
+	void create(string str, int& k);
 	void toString();
+	void tostring();
+	int depth();
 };
 
 template<class T>
@@ -49,11 +51,17 @@ void BTree<T>::create(string str,int &k)
 
 template<class T>
 void BTree<T>::toString() {
+	this->lc->tostring();
+	cout << endl;
+}
+
+template<class T>
+void BTree<T>::tostring() {
 	if (!this)return;//是空子树则返回
-	cout << this->data << " ";
+	cout << this->data ;
 	if (this->lc) {
 		cout << "(";
-		this->lc->toString();
+		this->lc->tostring();
 	}
 	else {
 		if (this->rc)
@@ -62,12 +70,19 @@ void BTree<T>::toString() {
 	}
 	if (this->rc) {
 		cout << ",";
-		this->rc->toString();
+		this->rc->tostring();
 		cout << ")";
 	}
 	else if(!this->rc){
 		cout <<")"; return;
 	}
+}
 
+template<class T>
+int BTree<T>::depth() {
+	if (!this)return -1;
+	int ld = this->lc->depth();
+	int rd = this->rc->depth();
+	return ld > rd ? ld + 1 : rd + 1;
 }
 #endif // !_TREE_H
