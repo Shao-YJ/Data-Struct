@@ -293,3 +293,16 @@ void bag2() {
 	int T = 100;
 	Knapsack2(T, 0, n, w);
 }
+
+int treeDepth(string str) {
+	int k = 0, i = 0,j=0;
+	char ch = str[k];
+	while (ch) {
+		if (ch == '(') {
+			i++; if (i > j)j = i;
+		}
+		if (ch == ')')i--;
+		k++; ch = str[k];
+	}
+	return j+1;
+}

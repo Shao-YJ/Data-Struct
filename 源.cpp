@@ -5,9 +5,6 @@ int main() {
 	BTree<char> t;
 	string str;
 	cin >> str;
-	int k = 0;
-	t.create(str, k);
-	t.toString();
-	cout << t.depth();
+	cout << treeDepth(str);
 	return 0;
 }

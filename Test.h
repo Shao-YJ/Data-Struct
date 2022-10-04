@@ -36,6 +36,6 @@ void hanoi(char x, int n, char y, char z);
 void bag();
 void bag2();
 
-void listReverse();
+int treeDepth(string str);
 
 #endif // !_TEST_H
