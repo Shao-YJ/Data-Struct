@@ -64,6 +64,17 @@ public:
 	SNode<T>* next;
 };
 
+template<class T>
+SNode<T>::SNode() {
+	this->next = NULL;
+}
+
+template<class T>
+SNode<T>::SNode(T Data) {
+	this->next = NULL;
+	this->data = Data;
+}
+
 template <typename T>
 class LinkStack {
 public:
@@ -82,17 +93,6 @@ T LinkStack<T>::top() {
 	if (isEmpty())
 		return this->head.data;
 	return this->head.next->data;
-}
-
-template<class T>
-SNode<T>::SNode() {
-	this->next = NULL;
-}
-
-template<class T>
-SNode<T>::SNode(T Data) {
-	this->next = NULL;
-	this->data = Data;
 }
 
 template<class T>

@@ -15,12 +15,21 @@ public:
 	void toString();
 	void tostring();
 	int depth();
+	void preOrder();
+	void inOrder();
+	void postOrder();
+	void visit();
 };
 
 template<class T>
 inline BTree<T>::BTree(T e){
 	this->data = e;
 	this->lc = this->rc = NULL;
+}
+
+template<class T>
+inline void BTree<T>::visit() {
+	cout << this->data;
 }
 
 template<class T>
@@ -84,5 +93,29 @@ int BTree<T>::depth() {
 	int ld = this->lc->depth();
 	int rd = this->rc->depth();
 	return ld > rd ? ld + 1 : rd + 1;
+}
+
+template<class T>
+void BTree<T>::preOrder() {
+	if (!this)return;
+	cout << this->data;
+	this->lc->preOrder();
+	this->rc->preOrder();
+}
+
+template<class T>
+void BTree<T>::inOrder() {
+	if (!this)return;
+	this->lc->inOrder();
+	cout << this->data;
+	this->rc->inOrder();
+}
+
+template<class T>
+void BTree<T>::postOrder() {
+	if (!this)return;
+	this->lc->postOrder();
+	this->rc->postOrder();
+	cout << this->data;
 }
 #endif // !_TREE_H

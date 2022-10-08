@@ -38,4 +38,61 @@ void bag2();
 
 int treeDepth(string str);
 
+template<class T>
+void preOrder(BTree<T> tree) {
+	LinkStack<BTree<T>*> tstack;
+	BTree<T>* p = tree.lc;
+	while (p) {
+		while (p->lc) {
+			p->visit();
+			tstack.push(p);
+			p = p->lc;
+		}
+		p->visit();
+		if (!p->rc && tstack.isEmpty())return;
+		while (!p->rc)p = tstack.pop();
+		if (p->rc)
+			p = p->rc;
+	}
+}
+
+template<class T>
+void inOrder(BTree<T> tree) {
+	LinkStack<BTree<T>*> tstack;
+	BTree<T>* p = tree.lc;
+	while (p) {
+		while (p->lc) {
+			tstack.push(p);
+			p = p->lc;
+		}
+		p->visit();
+		if (!p->rc && tstack.isEmpty())return;
+		while (!p->rc) {
+			p = tstack.pop();
+			p->visit();
+		}
+		if (p->rc)
+			p = p->rc;
+	}
+}
+
+template<class T>
+void postOrder(BTree<T> tree) {
+	LinkStack<BTree<T>*> lstack;
+	LinkStack<BTree<T>*> rstack;
+	BTree<T>* p;
+	lstack.push(tree.lc);
+	while (!lstack.isEmpty()) {
+		p = lstack.pop();
+		rstack.push(p);
+		if (p->lc)
+			lstack.push(p->lc);
+		if (p->rc)
+			lstack.push(p->rc);
+	}
+	while (!rstack.isEmpty()) {
+		p = rstack.pop();
+		p->visit();
+	}
+}
 #endif // !_TEST_H
