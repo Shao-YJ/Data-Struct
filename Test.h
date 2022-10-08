@@ -41,38 +41,32 @@ int treeDepth(string str);
 template<class T>
 void preOrder(BTree<T> tree) {
 	LinkStack<BTree<T>*> tstack;
-	BTree<T>* p = tree.lc;
-	while (p) {
-		while (p->lc) {
-			p->visit();
-			tstack.push(p);
-			p = p->lc;
-		}
+	BTree<T>* p ;
+	tstack.push(tree.lc);
+	while (!tstack.isEmpty()) {
+		p = tstack.pop();
 		p->visit();
-		if (!p->rc && tstack.isEmpty())return;
-		while (!p->rc)p = tstack.pop();
 		if (p->rc)
-			p = p->rc;
+			tstack.push(p->rc);
+		if (p->lc)
+			tstack.push(p->lc);
 	}
 }
 
 template<class T>
 void inOrder(BTree<T> tree) {
 	LinkStack<BTree<T>*> tstack;
-	BTree<T>* p = tree.lc;
-	while (p) {
-		while (p->lc) {
+	BTree<T>* p= tree.lc;
+	while (p||!tstack.isEmpty()) {
+		if (p) {
 			tstack.push(p);
 			p = p->lc;
 		}
-		p->visit();
-		if (!p->rc && tstack.isEmpty())return;
-		while (!p->rc) {
+		else {
 			p = tstack.pop();
 			p->visit();
-		}
-		if (p->rc)
 			p = p->rc;
+		}
 	}
 }
 

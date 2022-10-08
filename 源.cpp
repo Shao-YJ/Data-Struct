@@ -10,7 +10,7 @@ int main() {
 	while (cin >> str) {
 		int k = 0;
 		t.create(str, k);
-		postOrder(t);
+		inOrder(t);
 	}
 	return 0;
 }
