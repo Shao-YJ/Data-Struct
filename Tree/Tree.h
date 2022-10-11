@@ -8,8 +8,9 @@ public:
 	T data;
 	BTree<T>* lc;
 	BTree<T>* rc;
+	int ltag,rtag;//0:分支结点，1：叶子结点
 
-	BTree() { this->lc = this->rc = NULL; };
+	BTree() { this->ltag = 0; this->lc = this->rc = NULL; };
 	BTree(T e);
 	void create(string str, int& k);
 	void toString();
@@ -19,11 +20,20 @@ public:
 	void inOrder();
 	void postOrder();
 	void visit();
+
+	static void preThreading(BTree<T>* B, BTree<T>*& pre);
+	static void inThreading(BTree<T>* B, BTree<T>* &pre);
+	static void postThreading(BTree<T>* B, BTree<T>*& pre);
+	static void preOrderTraverse(BTree<T>* B);
+	static void inOrderTraverse(BTree<T>* B);
+	static void postOrderTraverse(BTree<T>* B);
 };
 
 template<class T>
 inline BTree<T>::BTree(T e){
 	this->data = e;
+	this->ltag = 0;
+	this->rtag = 0;
 	this->lc = this->rc = NULL;
 }
 
@@ -45,6 +55,7 @@ void BTree<T>::create(string str,int &k)
 		//if (ch >= 65 && ch <= 90 || ch >= 97 && ch <= 122)
 		else{
 			BTree<T>* t = (BTree<T>*)malloc(sizeof(BTree<T>));
+			t->rtag = t->ltag = 0;
 			t->lc = t->rc = NULL;
 			t->data = ch;
 			if (k != 0 && str[k - 1] == ',')this->rc = t;
@@ -117,5 +128,121 @@ void BTree<T>::postOrder() {
 	this->lc->postOrder();
 	this->rc->postOrder();
 	cout << this->data;
+}
+
+template<class T>
+void BTree<T>::preThreading(BTree<T>* B,BTree<T>* &pre) {
+	if (!B || !pre)return;
+
+	//处理根节点
+	//1.如果当前子树的根节点的左子树为空 就把left指针指向前驱
+	if (B->lc == NULL) {
+		B->lc = pre;
+		B->ltag = 1;
+	}
+	//如果当前子树的根结点的前驱的右子树为空 就把前驱的right指针指向根节点
+	if (pre != NULL && pre->rc == NULL) {
+		pre->rc = B;
+		pre->rtag = 1;
+	}
+
+	pre = B;
+	if (B->ltag == 0)
+		preThreading(B->lc, pre);
+	if (B->rtag == 0)
+		preThreading(B->rc, pre);
+	return;
+}
+
+template<class T>
+void BTree<T>::preOrderTraverse(BTree<T>* B) {
+	if (!B)	return;
+	BTree<T>* p = B;
+	while (p) {
+		while (p->ltag == 0) {
+			p->visit();
+			p = p->lc;
+		}
+		p->visit();
+		p = p->rc;
+	}
+	cout << endl;
+}
+
+template<class T>
+void BTree<T>::inThreading(BTree<T>* B,BTree<T>* &pre)
+{
+	if (!B)return;
+	inThreading(B->lc, pre);
+
+	if (!B->lc) {		//没有左孩子
+		B->ltag = 1;	//修改左标志域
+		B->lc = pre;	//左孩子指向前驱结点
+	}
+
+	if (!pre->rc) {		//没有右孩子
+		pre->rtag = 1;	//修改右标志域
+		pre->rc = B;	//前驱结点右孩子指向当前节点
+	}
+	pre = B;			//保证pre指向下一节点的前驱
+	
+	inThreading(B->rc, pre);
+}
+
+template<class T>
+void BTree<T>::inOrderTraverse(BTree<T>* B) {
+	BTree<T>* p = B;
+	while (p) {
+		while (p->ltag == 0)p = p->lc;
+		p->visit();
+		while (p->rtag == 1) {
+			p = p->rc;
+			p->visit();
+		}
+		p = p->rc;
+	}
+}
+
+template<class T>
+void BTree<T>::postThreading(BTree<T>* B, BTree<T>*& pre) {
+	if (!B)return;
+
+	postThreading(B->lc, pre);
+	postThreading(B->rc, pre);
+
+	if (!B->lc) {
+		B->ltag = 1;
+		B->lc = pre;
+	}
+	if (pre && !pre->rc) {
+		pre->rtag = 1;
+		pre->rc = B;
+	}
+	pre = B;
+}
+
+template<class T>
+void BTree<T>::postOrderTraverse(BTree<T>* B) {
+	if (!B)return;
+	LinkStack<char> stack;
+	BTree<T>* p = B;
+	stack.push(p->data);
+	while (p) {
+		while (p->rtag == 0&&p->rc) {
+			p = p->rc;
+			stack.push(p->data);
+		}
+		while (p->lc&& p->ltag == 1) {
+			p = p->lc;
+			stack.push(p->data);
+		}
+		if (p->rc&&p->lc)
+			continue;
+		p = p->lc;
+	}
+	cout << endl;
+	while (!stack.isEmpty()) {
+		cout << stack.pop();
+	}
 }
 #endif // !_TREE_H
