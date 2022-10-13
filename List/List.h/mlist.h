@@ -56,7 +56,7 @@ MList<T>::MList(int length) {
 	this->elem = (T*)malloc(length * sizeof(T));
 	if (!this->elem)
 	{
-		cout << "init errof";
+		cout << "init error";
 		return;
 	}
 }

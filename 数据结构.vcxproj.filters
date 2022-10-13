@@ -65,5 +65,13 @@
     <ClInclude Include="Test.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Tree\Huffman.h">
+      <Filter>头文件\Tree</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="数据结构笔记.md">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>
