@@ -3,7 +3,7 @@
 #include"../../std.h"
 
 template <typename T>
-struct Stack {
+struct MStack {
 	T* base;
 	T* top;
 	int stacksize;
@@ -11,7 +11,7 @@ struct Stack {
 
 //ÏßÐÔÕ»²Ù×÷
 template<typename T>
-void initStack(Stack<T>& S, int n)
+void initStack(MStack<T>& S, int n)
 {
 	S.base = (T*)malloc(n * sizeof(T));
 	S.top = S.base;
@@ -19,7 +19,7 @@ void initStack(Stack<T>& S, int n)
 }
 
 template <typename T>
-void push(Stack<T>& S, int e) {
+void push(MStack<T>& S, int e) {
 	if (S.top - S.base > S.stacksize)
 	{
 		int* new_Stack = (T*)realloc(S.base, 2 * S.stacksize * sizeof(T));
@@ -31,19 +31,19 @@ void push(Stack<T>& S, int e) {
 }
 
 template <typename T>
-int pop(Stack<T>& S) {
+int pop(MStack<T>& S) {
 	if (S.top != S.base)
 		return *(--S.top);
 	else return NULL;
 }
 
 template <typename T>
-bool stackIsEmpty(Stack<T> S) {
+bool stackIsEmpty(MStack<T> S) {
 	return S.top == S.base;
 }
 
 template <typename T>
-void stackToString(Stack<T> S) {
+void stackToString(MStack<T> S) {
 	T* p = S.base;
 	while (p < S.top)
 	{

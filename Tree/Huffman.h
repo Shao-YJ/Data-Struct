@@ -31,11 +31,10 @@ HuffmanNode<T>::HuffmanNode(T e, int Weight, int Lc, int Rc, int Parent)
 }
 
 template<typename T>
-void Huffman() {
-	int n,i=0,j=0;
+MList<HuffmanNode<T>> Huffman(int n) {
+	int i=0,j=0;
 	T e;
 	int weight;
-	cin >> n;
 	MList<HuffmanNode<T>> hufflist(2 * n - 1);
 
 	for (i = 0; i < n; i++) {
@@ -62,16 +61,32 @@ void Huffman() {
 		hufflist.elem[locate1].parent = i;
 		hufflist.elem[locate2].parent = i;
 		hufflist.elem[i]=HuffmanNode<T>('A'+i, hufflist.elem[locate1].w + hufflist.elem[locate2].w, locate1, locate2);
-		hufflist.elem[i].toString();
-		//list.elem[i].w = list.elem[locate1].w + list.elem[locate2].w;
-		//list.elem[i].lc = locate1;
-		//list.elem[i].lc = locate2;
 	}
 
 	for (i = 0; i < 2 * n - 1; i++) {
 		cout << i << ":\t";
 		hufflist.elem[i].toString();
 	}
+	return hufflist;
 }
 
+template<typename T>
+void Huffcode(MList<HuffmanNode<T>> hufflist,int n) {
+	stack<char> code;
+	int i, j;
+	for (i = 0; i < n; i++) {
+		j = i;
+		while (hufflist.elem[j].parent != NULL) {
+			if (hufflist.elem[hufflist.elem[j].parent].lc == j)code.push('0');
+			else code.push('1');
+			j = hufflist.elem[j].parent;
+		}
+		cout << i << ":" << hufflist.elem[i].data << "\t";
+		while (!code.empty()) {
+			cout << code.top();
+			code.pop();
+		}
+		cout << endl;
+	}
+}
 #endif // !_HUFFMAN_H

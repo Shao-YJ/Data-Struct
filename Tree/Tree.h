@@ -245,4 +245,117 @@ void BTree<T>::postOrderTraverse(BTree<T>* B) {
 		cout << stack.pop();
 	}
 }
+
+//树的双亲表示法
+template<class T>
+class TNode {
+public:
+	T data;  //数据元素
+	int parent;//双亲位置
+}; //结点结构
+
+//树的存储结构
+template<class T>
+class PTree {
+public:
+	int length;
+	TNode<T> tree[100];
+	int nodenum;//结点数
+
+	PTree();
+};
+
+template<class T>
+PTree<T>::PTree() {
+	this->length = 100;
+	this->nodenum = 0;
+}
+
+//树的孩子表示法
+template<class T>
+class CNode {
+public:
+	int child; // 孩子结点在顺序表中的位置
+	CNode<T>* next;
+};//孩子链表结构
+
+template<class T>
+class Tchild{
+public:
+	T data;
+	CNode<T>  firstchild;//孩子链表头指针
+
+	Tchild(T e) {
+		this->data = e;
+		this->firstchild = new CNode<T>;
+	}
+	~Tchild() {
+		delete this->firstchild;
+	}
+};//表头指针结构
+
+template<class T>
+class CTree{
+public:
+	Tchild<T>  T[100];
+	int  r, n;//根的位置，结点数
+
+	CTree() { r = 0; n = 0; }
+};//树的存储结构
+
+//树的孩子兄弟表示法
+template<class T>
+class CSnode{
+public:
+	T data;//数据元素域
+	CSnode* Child1;//第1个孩子
+	CSnode* Sibling;//下1个兄弟
+
+	CSnode(T e);
+	void preTree();
+	void postTree();
+	static void levelTree(CSnode<T> &head);
+	void visit() { cout << this->data; }
+};
+
+template<class T>
+CSnode<T>::CSnode(T e) {
+	this->data = e;
+	this->Child1 = NULL;
+	this->Sibling = NULL;
+}
+
+//树的先根遍历
+template<class T>
+void CSnode<T>::preTree(){
+	if (!this)return;
+	cout << this->data;
+	preTree(this->Child1);
+	preTree(this->Sibling);
+}
+
+//树的后根遍历
+template<class T>
+void CSnode<T>::postTree() {
+	if (!this)return;
+	preTree(this->Child1);
+	preTree(this->Sibling);
+	cout << this->data;
+}
+
+//树的层序遍历
+template<class T>
+void CSnode<T>::levelTree(CSnode<T> &head) {
+	CSnode<T>* p = &head;
+	queue<CSnode<T>*> tqueue;
+	//tqueue.push(p);
+	while (p||!tqueue.empty()) {
+		if (!p && !tqueue.empty()) { 
+			p = tqueue.front(); tqueue.pop(); }
+		p->visit();
+		cout << " ";
+		if (p->Child1)tqueue.push(p->Child1);
+		p = p->Sibling;
+	}
+}
 #endif // !_TREE_H

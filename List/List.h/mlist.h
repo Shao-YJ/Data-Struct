@@ -29,6 +29,7 @@ void freeMlist(Mlist& L);
 template<typename T>
 class MList {
 public:
+	MList(){}
 	MList(int length);
 	T* elem;
 	int n;

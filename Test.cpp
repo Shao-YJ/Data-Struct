@@ -3,7 +3,7 @@
 //输入10进制数n，输出d进制数。
 int _10toN(int e, int n) {
 	int p = 0;
-	Stack<int> s;
+	MStack<int> s;
 	initStack(s, 10);
 
 	while (e) {

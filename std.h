@@ -5,6 +5,8 @@
 #include<time.h>
 #include<conio.h>
 #include<Windows.h>
+#include<stack>
+#include<queue>
 using namespace std;
 
 #include"List/List.h/LinkList.h"
