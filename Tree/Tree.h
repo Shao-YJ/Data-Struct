@@ -10,8 +10,10 @@ public:
 	BTree<T>* rc;
 	int ltag,rtag;//0:分支结点，1：叶子结点
 
-	BTree() { this->ltag = 0; this->lc = this->rc = NULL; };
+	BTree() { this->ltag = 0; this->rtag = 0; this->lc = this->rc = NULL; };
 	BTree(T e);
+	~BTree();
+
 	void create(string str, int& k);
 	void toString();
 	void tostring();
@@ -20,6 +22,9 @@ public:
 	void inOrder();
 	void postOrder();
 	void visit();
+	void deleteCTree(T e);
+	void deleteCTree();
+	int BTL(T e);
 
 	static void preThreading(BTree<T>* B, BTree<T>*& pre);
 	static void inThreading(BTree<T>* B, BTree<T>* &pre);
@@ -27,6 +32,7 @@ public:
 	static void preOrderTraverse(BTree<T>* B);
 	static void inOrderTraverse(BTree<T>* B);
 	static void postOrderTraverse(BTree<T>* B);
+	static bool likeTree(BTree<T> *A, BTree<T> *B);
 };
 
 template<class T>
@@ -35,6 +41,51 @@ inline BTree<T>::BTree(T e){
 	this->ltag = 0;
 	this->rtag = 0;
 	this->lc = this->rc = NULL;
+}
+
+template<class T>
+BTree<T>::~BTree(){
+	this->lc = this->rc = NULL;
+}
+
+template<class T>
+bool BTree<T>::likeTree(BTree<T>* A, BTree<T>* B) {
+	if (!A && !B)return true;
+	if (!A || !B)return false;
+	int l, r;
+	l = likeTree(A->lc, B->lc);
+	r = likeTree(A->rc, B->rc);
+	return (l && r);
+}
+
+template<class T>
+int BTree<T>::BTL(T e) {
+	if (!this) return 0;
+	if (this->data == e)return 1;
+	int lk, rk;
+	lk = this->lc->BTL(e);
+	rk = this->rc->BTL(e);
+	if (!lk && !rk)return 0;
+	else return lk > rk ? lk+1 : rk+1;
+}
+
+template<class T>
+void BTree<T>::deleteCTree(){
+	if (!this)return;
+	BTree<T>* p = this;
+	p->lc->deleteCTree();
+	p->rc->deleteCTree();
+	p->~BTree();
+}
+
+template<class T>
+void BTree<T>::deleteCTree(T e){
+	if (!this)return;
+	if (this->data == e)this->deleteCTree();
+	else {
+		this->lc->deleteCTree(e);
+		this->rc->deleteCTree(e);
+	}
 }
 
 template<class T>
@@ -246,7 +297,7 @@ void BTree<T>::postOrderTraverse(BTree<T>* B) {
 	}
 }
 
-//树的双亲表示法
+//树的双亲表示法---------------------------------------------------------------------------
 template<class T>
 class TNode {
 public:
@@ -271,7 +322,7 @@ PTree<T>::PTree() {
 	this->nodenum = 0;
 }
 
-//树的孩子表示法
+//树的孩子表示法---------------------------------------------------------------------------------
 template<class T>
 class CNode {
 public:
@@ -303,7 +354,7 @@ public:
 	CTree() { r = 0; n = 0; }
 };//树的存储结构
 
-//树的孩子兄弟表示法
+//树的孩子兄弟表示法----------------------------------------------------------------------------
 template<class T>
 class CSnode{
 public:
