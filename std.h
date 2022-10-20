@@ -15,4 +15,5 @@ using namespace std;
 #include"List/List.h/Queue.h"
 #include"List/List.h/Matrix.h"
 #include"Tree/Tree.h"
+#include"Graph/Graph.h"
 #endif // !_STD_H

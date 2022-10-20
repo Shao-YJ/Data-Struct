@@ -22,6 +22,9 @@
     <Filter Include="头文件\Tree">
       <UniqueIdentifier>{86e441f8-a732-4a07-bc71-3203cc2631ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Graph">
+      <UniqueIdentifier>{5b60731e-581e-4880-ab91-19a50e3396f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Tree\Huffman.h">
       <Filter>头文件\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\Graph.h">
+      <Filter>头文件\Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #define _QUEUE_H
 #include"../../std.h"
 
-#define MAXSIZE 100
+#define MAXSIZE 10
 
 //typedef struct Queue {
 //	int* front;

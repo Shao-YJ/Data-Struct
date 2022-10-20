@@ -146,6 +146,7 @@
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graph\Graph.h" />
     <ClInclude Include="List\List.h\LinkList.h" />
     <ClInclude Include="List\List.h\Matrix.h" />
     <ClInclude Include="List\List.h\MList.h" />
