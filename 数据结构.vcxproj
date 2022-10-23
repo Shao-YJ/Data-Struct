@@ -160,6 +160,9 @@
   <ItemGroup>
     <None Include="数据结构笔记.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Graph\测试数据.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

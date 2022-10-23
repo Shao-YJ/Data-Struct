@@ -137,7 +137,7 @@ void labyrinth(int m,int n) {
 void bracketMatch() {
 	MList<char> p(100);
 	cin >> p;
-	p.n = strlen(p.elem);
+	p.n = (int)strlen(p.elem);
 	LinkStack<char> chstack;
 	char ch,temp;
 	int i, n = p.n;
@@ -172,7 +172,7 @@ void arthimetic() {
 	Queue<char> queue;
 
 	cin >> list;
-	int n = strlen(list.elem);
+	int n = (int)strlen(list.elem);
 	int i = 0;
 	char ch,p;
 	while (i < n) {
