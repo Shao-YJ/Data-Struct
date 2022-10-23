@@ -5,19 +5,24 @@
 int main() {
 
 	char list[8] = { 'a','b','c','d','e','f','g','h' };
-	MatrixGraph<char> graph;
-	graph.setVe(list,8);
-	graph.create();
-	graph.toString();
-	graph.setVisited();
-	//graph.DFSTraverse(7);
-	cout << endl << endl;
+	//MatrixGraph<char> graph(0);
+	//graph.setVe(list,8);
+	//graph.create();
+	//graph.toString();
+	//graph.setVisited();
+
+	////for (int i = 0; i < 8; i++) {
+	//graph.BFSTraverse(7);
+	////	cout << endl;
+	////}
+	//
+	//cout << endl << endl;
 
 	ListGraph<char> lgraph(list,8,1);
 	lgraph.create();
 	lgraph.toString();
 	lgraph.setVisited();
-	//lgraph.DFSTraverse(7);
+	lgraph.BFSTraverse(1);
 
 	return 0;
 }

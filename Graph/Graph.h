@@ -21,11 +21,41 @@ public:
 	int TD(T e);
 	void setVisited();
 	void visit(int v);
+
 	int firstAdjV(int v);
 	int nextAdjV(int v, int w);
 	void DFS(int v);
 	void DFSTraverse(int v);
+
+	void BFS(int v);
+	void BFSTraverse(int v);
 };
+
+template<class T>
+void MatrixGraph<T>::BFSTraverse(int v){
+	this->setVisited();
+	this->BFS(v);
+	for (int i = 0; i < this->size; i++)
+		if (!this->visited[i])
+			BFS(i);
+}
+
+template<class T>
+void MatrixGraph<T>::BFS(int v){
+	queue<int> vq;
+	this->visited[v] = true;
+	vq.push(v);
+	while (!vq.empty()) {
+		v = vq.front();
+		vq.pop();
+		this->visit(v);
+		for (int i = 0; i < n; i++) 
+			if (this->Vr[v][i] && !this->visited[i]) {
+				vq.push(i);
+				this->visited[i] = true;
+			}
+	}
+}
 
 template<class T>
 void MatrixGraph<T>::DFSTraverse(int v) {
@@ -45,7 +75,7 @@ void MatrixGraph<T>::DFS(int v){
 	}
 }
 
-template<class T>
+template<class T>//找出第一个邻接点
 int MatrixGraph<T>::firstAdjV(int v){
 	for (int i = 0; i < this->size; i++)
 		if (this->Vr[v][i] != 0)
@@ -53,7 +83,7 @@ int MatrixGraph<T>::firstAdjV(int v){
 	return -1;
 }
 
-template<class T>
+template<class T>//在当前邻接点基础上找下一个邻接点
 int MatrixGraph<T>::nextAdjV(int v, int w){
 	for (int i = w+1; i < this->size; i++)
 		if (this->Vr[v][i] != 0)
@@ -202,7 +232,40 @@ public:
 	void setVisited();
 	void DFS(int v);
 	void DFSTraverse(int v);
+
+	void BFS(int v);
+	void BFSTraverse(int v);
 };
+
+template<class T>
+void ListGraph<T>::BFSTraverse(int v) {
+	this->setVisited();
+	this->BFS(v);
+	for (int i = 0; i < this->vn; i++)
+		if (!this->visited[i])
+			this->BFS(i);
+}
+
+template<class T>
+void ListGraph<T>::BFS(int v){
+	ENode<T>* p = NULL;
+	queue<ENode<T>*> q;
+	q.push(this->Ve[v].head);
+	this->visit(v);
+	this->visited[v] = true;
+	while (!q.empty()) {
+		p = q.front();
+		q.pop();
+		while (p) {
+			if (!this->visited[p->Vi]) {
+				this->visit(p->Vi);
+				this->visited[p->Vi] = true;
+				q.push(this->Ve[p->Vi].head);
+			}
+			p = p->next;
+		}
+	}
+}
 
 template<class T>
 void ListGraph<T>::DFSTraverse(int v) {
