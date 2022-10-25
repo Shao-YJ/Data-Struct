@@ -5,6 +5,7 @@
 #include<time.h>
 #include<conio.h>
 #include<Windows.h>
+#include<climits>
 #include<stack>
 #include<queue>
 using namespace std;
@@ -15,5 +16,6 @@ using namespace std;
 #include"List/List.h/Queue.h"
 #include"List/List.h/Matrix.h"
 #include"Tree/Tree.h"
-#include"Graph/Graph.h"
+#include"Graph/MatrixGraph.h"
+#include"Graph/ListGraph.h"
 #endif // !_STD_H

@@ -1,5 +1,5 @@
-#ifndef _GRAPH_H
-#define _GRAPH_H
+#ifndef _MATRIXGRAPH_H
+#define _MATRIXGRAPH_H
 #include"../std.h"
 
 #define MAXSIZE 10
@@ -29,7 +29,69 @@ public:
 
 	void BFS(int v);
 	void BFSTraverse(int v);
+
+	bool path(int v1, int v2);
+
+	void prim(int v);
+	int getMinEdge(int lowcost[]);
 };
+
+template<class T>
+void MatrixGraph<T>::prim(int v) {
+	int i, j, z, k;
+	int lowcost[2][MAXSIZE];
+	//第0行存储双亲结点，第1行存储当前树中结点与不在树中结点的邻接点的权值
+	this->setVisited();
+	this->visited[v] = true;
+
+	//根据根节点，对最小代价表进行初始化
+	for (i = 0; i < this->size; i++) {
+		lowcost[0][i] = v;
+		lowcost[1][i] = this->Vr[v][i];
+	}
+	//进行size-1次，找到除根节点外剩下的结点
+	for (i = 0; i < this->size - 1; i++) {
+		k = this->getMinEdge(lowcost[1]);//找到当前权值最小结点
+		this->visited[k] = true;
+		for (j = 0; j < this->size; j++) {
+			//判断条件有两个，前提都是结点未访问，一个是lowcost中权值未赋值，仍未0，
+			//一种是lowcost权值已赋值，但权值小于新加入结点与同一邻接点的权值
+			if (!this->visited[j] && !lowcost[1][j] || 
+				!this->visited[j] && this->Vr[k][j] < lowcost[1][j] && this->Vr[k][j]) {
+				lowcost[0][j] = k;
+				lowcost[1][j] = this->Vr[k][j];
+			}
+		}
+	}
+}
+
+//根据lowcost表找到权值最小结点
+template<class T>
+int MatrixGraph<T>::getMinEdge(int lowcost[]) {
+	int min = INT_MAX, locate = -1;
+	for (int i = 0; i < this->size; i++)
+	{
+		//权值不能为0
+		if (lowcost[i] < min && !this->visited[i] && lowcost[i]) {
+			min = lowcost[i];
+			locate = i;
+		}
+	}
+	return locate;
+}
+
+template<class T>
+bool MatrixGraph<T>::path(int v1, int v2){
+	this->visited[v1] = true;
+	for (int i = 0; i < this->size; i++)
+		if (this->Vr[v1][i] && !this->visited[i]) {
+			if (i == v2) 
+				return true;
+			if (this->path(i, v2))
+				return true;
+		}
+	return false;
+}
 
 template<class T>
 void MatrixGraph<T>::BFSTraverse(int v){
@@ -144,16 +206,16 @@ void MatrixGraph<T>::create() {
 	int v1, v2, w;
 	this->n = 0;
 	//根据表类型创建有向图或无向图
-	if (this->type) {//无向图
-		cin >> v1 >> v2;
+	if (this->type) {//有向图
+		cin >> v1 >> v2 >> w;
 		while (v1 != v2) {
-			this->Vr[v1][v2] = 1;
-			this->Vr[v2][v1] = 1;
-			cin >> v1 >> v2;
+			this->Vr[v1][v2] = w;
+			this->Vr[v2][v1] = w;
+			cin >> v1 >> v2 >> w;
 			this->n++;
 		}
 	}
-	else {//有像图
+	else {//无像图
 		cin >> v1 >> v2 >> w;
 		while (v1 != v2) {
 			this->Vr[v1][v2] = w;
@@ -161,7 +223,6 @@ void MatrixGraph<T>::create() {
 			this->n++;
 		}
 	}
-	cout << endl;
 }
 
 template<class T>
@@ -180,176 +241,4 @@ void MatrixGraph<T>::toString() {
 	}
 }
 
-//----邻接表----
-template<class T>
-class ENode {
-public:
-	int Vi;
-	int Wi;
-	ENode<T>* next;
-
-	ENode(int v, int w);
-	ENode() {};
-};
-
-template<class T>
-ENode<T>::ENode(int v, int w) {
-	this->Vi = v;
-	this->Wi = w;
-	this->next = NULL;
-}
-
-template<class T>
-class VNode {
-public:
-	T data;
-	ENode<T> *head;
-
-	VNode(T e);
-	VNode() { this->head = NULL; };
-};
-
-template<class T>
-VNode<T>::VNode(T e){
-	this->data = e;
-	this->head = NULL;
-}
-
-template<class T>
-class ListGraph {
-public:
-	VNode<T> Ve[MAXSIZE];
-	int vn;
-	int en;
-	int type;//1为无向图，2为有向图
-	bool visited[MAXSIZE];
-
-	ListGraph(T e[], int n,int t);
-	void create();
-	void toString();
-	void visit(int v);
-	
-	void setVisited();
-	void DFS(int v);
-	void DFSTraverse(int v);
-
-	void BFS(int v);
-	void BFSTraverse(int v);
-};
-
-template<class T>
-void ListGraph<T>::BFSTraverse(int v) {
-	this->setVisited();
-	this->BFS(v);
-	for (int i = 0; i < this->vn; i++)
-		if (!this->visited[i])
-			this->BFS(i);
-}
-
-template<class T>
-void ListGraph<T>::BFS(int v){
-	ENode<T>* p = NULL;
-	queue<ENode<T>*> q;
-	q.push(this->Ve[v].head);
-	this->visit(v);
-	this->visited[v] = true;
-	while (!q.empty()) {
-		p = q.front();
-		q.pop();
-		while (p) {
-			if (!this->visited[p->Vi]) {
-				this->visit(p->Vi);
-				this->visited[p->Vi] = true;
-				q.push(this->Ve[p->Vi].head);
-			}
-			p = p->next;
-		}
-	}
-}
-
-template<class T>
-void ListGraph<T>::DFSTraverse(int v) {
-	this->setVisited();
-	this->DFS(v);
-	for (int i = 0; i < this->vn; i++)
-		if (!this->visited[i])
-			this->DFS(i);
-}
-
-template<class T>
-void ListGraph<T>::DFS(int v){
-	this->visit(v); this->visited[v] = true;
-	ENode<T>* p = this->Ve[v].head;
-	while (p) {
-		if (!this->visited[p->Vi])
-			DFS(p->Vi);
-		p = p->next;
-	}
-}
-
-template<class T>
-void ListGraph<T>::visit(int v){
-	cout << this->Ve[v].data;
-}
-
-template<class T>
-void ListGraph<T>::setVisited(){
-	for (int i = 0; i < this->vn; i++)
-		visited[i] = false;
-}
-
-template<class T>
-void ListGraph<T>::toString(){
-	ENode<T>* p;
-	for (int i = 0; i < this->vn; i++) {
-		cout << i<<"\t"<<this->Ve[i].data<<":"<<i;
-		p = Ve[i].head;
-		while (p) {
-			cout << "->" << p->Vi;
-			p = p->next;
-		}
-		cout << endl;
-	}
-}
-
-template<class T>
-ListGraph<T>::ListGraph(T e[], int n,int t){
-	this->en = 0;
-	this->setVisited();
-	this->type = t;
-	this->vn = n;
-	for (int i = 0; i < n; i++)
-		this->Ve[i] = e[i];
-}
-
-template<class T>
-void ListGraph<T>::create() {
-	int v1, v2, w;
-	this->en = 0;
-	ENode<T>* p;
-	//根据表类型创建有向图或无向图
-	if (this->type) {//无向图
-		cin >> v1 >> v2;
-		while (v1 != v2) {
-			p = new ENode<T>(v2, 1);
-			p->next = this->Ve[v1].head;
-			this->Ve[v1].head = p;
-			p = new ENode<T>(v1, 1);
-			p->next = this->Ve[v2].head;
-			this->Ve[v2].head = p;
-			this->en++;
-			cin >> v1 >> v2;
-		}
-	}
-	else {//有像图
-		cin >> v1 >> v2 >> w;
-		while (v1 != v2) {
-			p = new ENode<T>(v2, w);
-			p->next = this->Ve[v1].head;
-			this->Ve[v1].head = p;
-			this->en++;
-			cin >> v1 >> v2>>w;
-		}
-	}
-}
-#endif // !_GRAPH_H
+#endif // !_MATRIXGRAPH_H

@@ -71,7 +71,10 @@
     <ClInclude Include="Tree\Huffman.h">
       <Filter>头文件\Tree</Filter>
     </ClInclude>
-    <ClInclude Include="Graph\Graph.h">
+    <ClInclude Include="Graph\MatrixGraph.h">
+      <Filter>头文件\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph\ListGraph.h">
       <Filter>头文件\Graph</Filter>
     </ClInclude>
   </ItemGroup>

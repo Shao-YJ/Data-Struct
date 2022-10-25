@@ -5,25 +5,20 @@
 int main() {
 
 	char list[8] = { 'a','b','c','d','e','f','g','h' };
-	//MatrixGraph<char> graph(0);
+	//MatrixGraph<char> graph(1);
 	//graph.setVe(list,8);
 	//graph.create();
 	//graph.toString();
 	//graph.setVisited();
+	//graph.prim(0);
 
-	////for (int i = 0; i < 8; i++) {
-	//graph.BFSTraverse(7);
-	////	cout << endl;
-	////}
-	//
-	//cout << endl << endl;
+
 
 	ListGraph<char> lgraph(list,8,1);
 	lgraph.create();
 	lgraph.toString();
 	lgraph.setVisited();
-	lgraph.BFSTraverse(1);
-
+	lgraph.prim(0);
 	return 0;
 }
 
