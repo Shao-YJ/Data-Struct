@@ -123,6 +123,8 @@ int ListGraph<T>::getMinEdge(int lowcost[]) {
 	return locate;
 }
 
+
+
 template<class T>
 bool ListGraph<T>::path(int v1,int v2) {
 	ENode<T>* p = this->Ve[v1].head;

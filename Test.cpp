@@ -323,3 +323,15 @@ int treeDepth(string str) {
 	}
 	return j+1;
 }
+
+void edgeSort(Edge e[], int n) {
+	int i,j;
+	Edge p;
+	for(i=0;i<n;i++)
+		for(j=0;j<n-i-1;j++)
+			if (e[j].wi > e[j + 1].wi) {
+				p = e[j];
+				e[j] = e[j + 1];
+				e[j + 1] = p;
+			}
+}

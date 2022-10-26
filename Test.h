@@ -89,4 +89,7 @@ void postOrder(BTree<T> tree) {
 		p->visit();
 	}
 }
+
+//∂—≈≈–Ú
+void edgeSort(Edge e[], int n);
 #endif // !_TEST_H

@@ -4,6 +4,17 @@
 
 #define MAXSIZE 10
 
+struct Edge{
+	int v1;
+	int v2;
+	int wi;
+};
+
+static int edgeFind(int link[], int k) {
+	while (link[k] >= 0)k = link[k];
+	return k;
+}
+
 template<class T>
 class MatrixGraph {
 public:
@@ -32,12 +43,46 @@ public:
 
 	bool path(int v1, int v2);
 
-	void prim(int v);
+	void Prim(int v);
 	int getMinEdge(int lowcost[]);
+
+	void edges(Edge e[]);
+	void Kruskal(Edge e[]);
 };
 
 template<class T>
-void MatrixGraph<T>::prim(int v) {
+void MatrixGraph<T>::Kruskal(Edge e[]){
+	int link[MAXSIZE]; edgeSort(e, this->size);
+	int i, v1, v2;
+	for (i = 0; i < this->size; i++) 
+			link[i] = -1;
+	for (i = 0; i < this->n; i++) {
+		v1 = edgeFind(link, e[i].v1);
+		v2 = edgeFind(link, e[i].v2);
+		if (v1 != v2) {
+			if(link[e[i].v2]>=0)
+				link[e[i].v1] = e[i].v2;
+			else
+				link[e[i].v2] = e[i].v1;
+			cout << e[i].v1 << " " << e[i].v2 << " " << e[i].wi << endl;
+		}
+	}
+}
+
+template<class T>
+void MatrixGraph<T>::edges(Edge e[]){
+	int n = 0;
+	for(int i=0;i<this->size;i++)
+		for (int j = i; j < this->size; j++) 
+			if(this->Vr[i][j]){
+				e[n].v1 = i;
+				e[n].v2 = j;
+				e[n++].wi = this->Vr[i][j];
+			}
+}
+
+template<class T>
+void MatrixGraph<T>::Prim(int v) {
 	int i, j, z, k;
 	int lowcost[2][MAXSIZE];
 	//第0行存储双亲结点，第1行存储当前树中结点与不在树中结点的邻接点的权值
