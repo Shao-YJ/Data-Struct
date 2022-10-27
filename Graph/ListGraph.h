@@ -64,7 +64,59 @@ public:
 
 	void prim(int v);
 	int getMinEdge(int lowcost[]);
+
+	bool path_DFS(int v1, int v2);
+	void Dijkstra(int v);
 };
+
+template<class T>
+void ListGraph<T>::Dijkstra(int v) {
+	int i, j, k, s, min, length[MAXSIZE] = { 0 }, list[MAXSIZE];
+	this->setVisited();
+	this->visited[v] = true;
+	ENode<T>* p = this->Ve[v].head;
+	while (p) {
+		length[p->Vi] = p->Wi;
+		list[p->Vi] = v;
+		p = p->next;
+	}
+	list[v] = -1;
+	for (i = 0; i < this->vn; i++) {
+		min = INT_MAX; k = 0;
+		for (j = 0; j < this->vn; j++)
+			if (!this->visited[j] && length[j] < min && length[j]>0) {
+				k = j; min = length[j];
+			}
+		this->visited[k] = true;
+		p = this->Ve[k].head;
+		while (p) {
+			if (!this->visited[p->Vi]){
+				s = length[k] + p->Wi;
+				if (s < length[p->Vi] || length[p->Vi] == 0) {
+					length[p->Vi] = s;
+					list[p->Vi] = k;
+				}
+			}
+			p = p->next;
+		}
+	}
+}
+
+template<class T>
+bool ListGraph<T>::path_DFS(int v1,int v2){
+	this->visit(v1);
+	this->visited[v1] = true;
+	ENode<T>* p = this->Ve[v1].head;
+	while (p) {
+		if (p->Vi == v2) {
+			this->visit(v2); return true;
+		}
+		if (!this->visited[p->Vi] && this->path_DFS(p->Vi, v2))
+			return true;
+		p = p->next;
+	}
+	return false;
+}
 
 template<class T>
 void ListGraph<T>::prim(int v){
@@ -107,7 +159,6 @@ void ListGraph<T>::prim(int v){
 		cout << lowcost[1][i] << "\t";
 }
 
-
 //根据lowcost表找到权值最小结点
 template<class T>
 int ListGraph<T>::getMinEdge(int lowcost[]) {
@@ -122,8 +173,6 @@ int ListGraph<T>::getMinEdge(int lowcost[]) {
 	}
 	return locate;
 }
-
-
 
 template<class T>
 bool ListGraph<T>::path(int v1,int v2) {

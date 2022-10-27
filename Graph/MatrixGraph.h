@@ -19,13 +19,13 @@ template<class T>
 class MatrixGraph {
 public:
 	int type;//1为无向图，0为有向图
-	int size;//顶点个数
-	int n;
+	int vn;//顶点个数
+	int en;
 	T Ve[MAXSIZE];
 	int Vr[MAXSIZE][MAXSIZE] = { 0 };
 	bool visited[MAXSIZE];
 
-	MatrixGraph(int t=1) { this->type = t; this->n = 0; }
+	MatrixGraph(int t=1) { this->type = t; this->en = 0; }
 	void create();
 	void toString();
 	void setVe(T list[], int s);
@@ -48,15 +48,46 @@ public:
 
 	void edges(Edge e[]);
 	void Kruskal(Edge e[]);
+
+	void Dijkstra(int v);
 };
 
 template<class T>
+void MatrixGraph<T>::Dijkstra(int v){
+	int i,j,k,s,min,length[MAXSIZE],list[MAXSIZE];
+	this->setVisited();
+	this->visited[v] = true;
+	for (i = 0; i < this->vn; i++) {
+		length[i] = this->Vr[v][i];
+		list[i] = v;
+	}
+	list[v] = -1;
+	for (i = 0; i < this->vn; i++) {
+		min = INT_MAX; k = 0;
+		for (j = 0; j < this->vn; j++)
+			if (!this->visited[j] && length[j] < min&&length[j]>0) {
+				k = j; min = length[j];
+			}
+		this->visited[k] = true;
+		for (j = 0; j < this->vn; j++) {
+			if (this->Vr[k][j] == 0|| this->visited[j])
+				continue;
+			s = length[k] + this->Vr[k][j];
+			if (s < length[j]||length[j]==0) {
+				length[j] = s;
+				list[j] = k;
+			}
+		}
+	}
+}
+
+template<class T>
 void MatrixGraph<T>::Kruskal(Edge e[]){
-	int link[MAXSIZE]; edgeSort(e, this->size);
+	int link[MAXSIZE]; edgeSort(e, this->vn);
 	int i, v1, v2;
-	for (i = 0; i < this->size; i++) 
+	for (i = 0; i < this->vn; i++) 
 			link[i] = -1;
-	for (i = 0; i < this->n; i++) {
+	for (i = 0; i < this->en; i++) {
 		v1 = edgeFind(link, e[i].v1);
 		v2 = edgeFind(link, e[i].v2);
 		if (v1 != v2) {
@@ -72,8 +103,8 @@ void MatrixGraph<T>::Kruskal(Edge e[]){
 template<class T>
 void MatrixGraph<T>::edges(Edge e[]){
 	int n = 0;
-	for(int i=0;i<this->size;i++)
-		for (int j = i; j < this->size; j++) 
+	for(int i=0;i<this->vn;i++)
+		for (int j = i; j < this->vn; j++) 
 			if(this->Vr[i][j]){
 				e[n].v1 = i;
 				e[n].v2 = j;
@@ -90,15 +121,15 @@ void MatrixGraph<T>::Prim(int v) {
 	this->visited[v] = true;
 
 	//根据根节点，对最小代价表进行初始化
-	for (i = 0; i < this->size; i++) {
+	for (i = 0; i < this->vn; i++) {
 		lowcost[0][i] = v;
 		lowcost[1][i] = this->Vr[v][i];
 	}
 	//进行size-1次，找到除根节点外剩下的结点
-	for (i = 0; i < this->size - 1; i++) {
+	for (i = 0; i < this->vn - 1; i++) {
 		k = this->getMinEdge(lowcost[1]);//找到当前权值最小结点
 		this->visited[k] = true;
-		for (j = 0; j < this->size; j++) {
+		for (j = 0; j < this->vn; j++) {
 			//判断条件有两个，前提都是结点未访问，一个是lowcost中权值未赋值，仍未0，
 			//一种是lowcost权值已赋值，但权值小于新加入结点与同一邻接点的权值
 			if (!this->visited[j] && !lowcost[1][j] || 
@@ -114,7 +145,7 @@ void MatrixGraph<T>::Prim(int v) {
 template<class T>
 int MatrixGraph<T>::getMinEdge(int lowcost[]) {
 	int min = INT_MAX, locate = -1;
-	for (int i = 0; i < this->size; i++)
+	for (int i = 0; i < this->vn; i++)
 	{
 		//权值不能为0
 		if (lowcost[i] < min && !this->visited[i] && lowcost[i]) {
@@ -128,7 +159,7 @@ int MatrixGraph<T>::getMinEdge(int lowcost[]) {
 template<class T>
 bool MatrixGraph<T>::path(int v1, int v2){
 	this->visited[v1] = true;
-	for (int i = 0; i < this->size; i++)
+	for (int i = 0; i < this->vn; i++)
 		if (this->Vr[v1][i] && !this->visited[i]) {
 			if (i == v2) 
 				return true;
@@ -142,7 +173,7 @@ template<class T>
 void MatrixGraph<T>::BFSTraverse(int v){
 	this->setVisited();
 	this->BFS(v);
-	for (int i = 0; i < this->size; i++)
+	for (int i = 0; i < this->vn; i++)
 		if (!this->visited[i])
 			BFS(i);
 }
@@ -156,7 +187,7 @@ void MatrixGraph<T>::BFS(int v){
 		v = vq.front();
 		vq.pop();
 		this->visit(v);
-		for (int i = 0; i < n; i++) 
+		for (int i = 0; i < en; i++) 
 			if (this->Vr[v][i] && !this->visited[i]) {
 				vq.push(i);
 				this->visited[i] = true;
@@ -168,7 +199,7 @@ template<class T>
 void MatrixGraph<T>::DFSTraverse(int v) {
 	this->setVisited();
 	DFS(v);
-	for (int i = 0; i < this->size; i++)
+	for (int i = 0; i < this->vn; i++)
 		if (!this->visited[i])
 			DFS(i);
 }
@@ -184,7 +215,7 @@ void MatrixGraph<T>::DFS(int v){
 
 template<class T>//找出第一个邻接点
 int MatrixGraph<T>::firstAdjV(int v){
-	for (int i = 0; i < this->size; i++)
+	for (int i = 0; i < this->vn; i++)
 		if (this->Vr[v][i] != 0)
 			return i;
 	return -1;
@@ -192,7 +223,7 @@ int MatrixGraph<T>::firstAdjV(int v){
 
 template<class T>//在当前邻接点基础上找下一个邻接点
 int MatrixGraph<T>::nextAdjV(int v, int w){
-	for (int i = w+1; i < this->size; i++)
+	for (int i = w+1; i < this->vn; i++)
 		if (this->Vr[v][i] != 0)
 			return i;
 	return -1;
@@ -205,7 +236,7 @@ void MatrixGraph<T>::visit(int v){
 
 template<class T>
 void MatrixGraph<T>::setVisited(){
-	for (int i = 0; i < this->n; i++)
+	for (int i = 0; i < this->en; i++)
 		this->visited[i] = false;
 }
 
@@ -213,23 +244,23 @@ template<class T>
 int MatrixGraph<T>::TD(T e){
 	int i, site = 0;
 	int ID = 0,OD=0;
-	for (i = 0; i < this->size; i++)
+	for (i = 0; i < this->vn; i++)
 		if (Ve[i] == e) {
 			site = i; break;
 		}
-	if (site == -1 || site == this->size) {
+	if (site == -1 || site == this->vn) {
 		cout << "No such element!";
 		return NULL;
 	}
 	if (this->type) {
-		for (i = 0; i < this->size; i++) {
+		for (i = 0; i < this->vn; i++) {
 			if (this->Vr[i][site])
 				ID++;
 		}
 		return ID;
 	}
 	else {
-		for (i = 0; i < this->size; i++) {
+		for (i = 0; i < this->vn; i++) {
 			if (this->Vr[i][site])
 				ID++;
 			if (this->Vr[site][i])
@@ -241,7 +272,7 @@ int MatrixGraph<T>::TD(T e){
 
 template<class T>
 void MatrixGraph<T>::setVe(T list[], int s) {
-	this->size = s;
+	this->vn = s;
 	for (int i = 0; i < s; i++)
 		Ve[i] = list[i];
 }
@@ -249,7 +280,7 @@ void MatrixGraph<T>::setVe(T list[], int s) {
 template<class T>
 void MatrixGraph<T>::create() {
 	int v1, v2, w;
-	this->n = 0;
+	this->en = 0;
 	//根据表类型创建有向图或无向图
 	if (this->type) {//有向图
 		cin >> v1 >> v2 >> w;
@@ -257,7 +288,7 @@ void MatrixGraph<T>::create() {
 			this->Vr[v1][v2] = w;
 			this->Vr[v2][v1] = w;
 			cin >> v1 >> v2 >> w;
-			this->n++;
+			this->en++;
 		}
 	}
 	else {//无像图
@@ -265,7 +296,7 @@ void MatrixGraph<T>::create() {
 		while (v1 != v2) {
 			this->Vr[v1][v2] = w;
 			cin >> v1 >> v2 >> w;
-			this->n++;
+			this->en++;
 		}
 	}
 }
@@ -274,13 +305,13 @@ template<class T>
 void MatrixGraph<T>::toString() {
 	cout << "Vr\t";
 	int i, j;
-	int num = this->size;
+	int num = this->vn;
 	for (i = 0; i < num; i++)
 		cout << this->Ve[i] << "\t";
 	cout << endl;
-	for (i = 0; i < size; i++) {
+	for (i = 0; i < vn; i++) {
 		cout << Ve[i] << "\t";
-		for (j = 0; j < size; j++)
+		for (j = 0; j < vn; j++)
 			cout << Vr[i][j] << "\t";
 		cout << endl;
 	}

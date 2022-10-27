@@ -11,16 +11,16 @@ int main() {
 	graph.create();
 	graph.toString();
 	graph.edges(edge);
-	graph.Kruskal(edge);
+	graph.Dijkstra(0);
 
 
-
-	//Edge edge[20];
 	//ListGraph<char> lgraph(list,8,1);
 	//lgraph.create();
 	//lgraph.toString();
-	//lgraph.setVisited();
-	//lgraph.prim(0);
+	//lgraph.Dijkstra(0);
+
+	
+
 	return 0;
 }
 
