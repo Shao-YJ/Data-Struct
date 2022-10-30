@@ -50,7 +50,80 @@ public:
 	void Kruskal(Edge e[]);
 
 	void Dijkstra(int v);
+	void Floyd();
+
+	void TopoSort();
 };
+
+template<class T>
+void MatrixGraph<T>::TopoSort() {
+	int n = 0, r = 0, i, j, size = this->vn, p;
+	int topolist[MAXSIZE], ID[MAXSIZE] = { 0 };
+	for (i = 0; i < size; i++) {
+		ID[i] = 0;
+		for (j = 0; j < size; j++) 
+			if (this->Vr[j][i])
+				ID[i]++;
+		if (ID[i] == 0)
+			topolist[r++]=i;
+	}
+	if (r==0) {
+		cout << "No topolist";
+		return;
+	}
+	while (r > n) {
+		p = topolist[n++];
+		for (i = 0; i < size; i++)
+			if (this->Vr[p][i]) {
+				ID[i]--;
+				if (ID[i] == 0)
+					topolist[r++] = i;
+			}
+	}
+	if (n < size)
+		cout << "There is a loop.";
+	else 
+		for (i = 0; i < size; i++)
+			cout << topolist[i] << " ";
+}
+
+template<class T>
+void MatrixGraph<T>::Floyd(){
+	int Wi[MAXSIZE][MAXSIZE] = {0}, path[MAXSIZE][MAXSIZE][MAXSIZE] = { 0 };
+	int i, j, k,x,size=this->vn;
+	for (i = 0; i < size; i++)
+		for (j = 0; j < i; j++) {
+			Wi[i][j] =Wi[j][i]= this->Vr[i][j];
+			if (Wi[i][j]) {
+				path[i][j][i] = path[i][j][j] = 1;
+				path[j][i][i] = path[j][i][j] = 1;
+			}
+		}
+	for(i=0;i<size;i++)
+		for (j = i; j < size; j++) {
+			x = -1;
+			for(k=0;i!=j&&k<size;k++)
+				if (Wi[i][k] && Wi[k][j] && (Wi[i][k] + Wi[k][j] < Wi[i][j] || !Wi[i][j])) {
+					x = k;
+					Wi[i][j] = Wi[i][k] + Wi[k][j];
+					Wi[j][i] = Wi[i][k] + Wi[k][j];
+				}
+			if (x > -1) {
+				path[i][j][i] = path[i][j][j] = path[i][j][x] = 1;
+				path[j][i][i] = path[j][i][j] = path[j][i][x] = 1;
+			}
+		}
+	//for (i = 0; i < size; i++) Êä³ö½á¹û
+	//{
+	//	for (j = 0; j < size; j++)
+	//	{
+	//		for (k = 0; k < size; k++)
+	//			cout << path[i][j][k] << "-";
+	//		cout << ">" << Wi[i][j]<<"\t";
+	//	}
+	//	cout << endl;
+	//} 
+}
 
 template<class T>
 void MatrixGraph<T>::Dijkstra(int v){
@@ -78,6 +151,16 @@ void MatrixGraph<T>::Dijkstra(int v){
 				list[j] = k;
 			}
 		}
+	}
+	for (i = 0; i < this->vn; i++) {
+		j = i;
+		cout << "Path:" << j;
+		j = list[j];
+		while (j != -1) {
+			cout << "->" << j;
+			j = list[j];
+		}
+		cout << "\tlength:" << length[i] << endl;
 	}
 }
 

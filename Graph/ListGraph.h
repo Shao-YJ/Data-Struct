@@ -67,7 +67,85 @@ public:
 
 	bool path_DFS(int v1, int v2);
 	void Dijkstra(int v);
+	void Floyd();
+
+	void TopoSort();
 };
+
+template<class T>
+void ListGraph<T>::TopoSort() {
+	int n = 0, r = 0, i, j, size = this->vn;
+	int topolist[MAXSIZE], ID[MAXSIZE] = { 0 };
+	ENode<T>* p;
+	for (i = 0; i < size; i++) {
+		p = this->Ve[i].head;
+		while (p) {
+			ID[p->Vi]++;
+			p = p->next;
+		}
+	}
+	for (i = 0; i < size; i++)
+		if (ID[i] == 0)
+			topolist[r++] = i;
+	if (r == 0) {
+		cout << "No topolist";
+		return;
+	}
+	while (r > n) {
+		p = this->Ve[topolist[n++]].head;
+		while (p) {
+			ID[p->Vi]--;
+			if (ID[p->Vi] == 0)
+				topolist[r++] = p->Vi;
+			p = p->next;
+		}
+	}
+	if (n < size)
+		cout << "There is a loop.";
+	else
+		for (i = 0; i < size; i++)
+			cout << topolist[i] << " ";
+}
+
+template<class T>
+void ListGraph<T>::Floyd() {
+	int Wi[MAXSIZE][MAXSIZE] = { 0 }, path[MAXSIZE][MAXSIZE][MAXSIZE] = { 0 };
+	int i, j, k, x, size = this->vn;
+	ENode<T>* p;
+	for (i = 0; i < size; i++){
+		p = this->Ve[i].head;
+		while (p) {
+			Wi[i][p->Vi] = Wi[p->Vi][i] = p->Wi;
+			path[i][p->Vi][i] = path[i][p->Vi][p->Vi] = 1;
+			path[p->Vi][i][i] = path[p->Vi][i][p->Vi] = 1;
+			p = p->next;
+		}
+	}
+	for (i = 0; i < size; i++)
+		for (j = i; j < size; j++) {
+			x = -1;
+			for (k = 0; i != j && k < size; k++)
+				if (Wi[i][k] && Wi[k][j] && (Wi[i][k] + Wi[k][j] < Wi[i][j] || !Wi[i][j])) {
+					x = k;
+					Wi[i][j] = Wi[i][k] + Wi[k][j];
+					Wi[j][i] = Wi[i][k] + Wi[k][j];
+				}
+			if (x > -1) {
+				path[i][j][i] = path[i][j][j] = path[i][j][x] = 1;
+				path[j][i][i] = path[j][i][j] = path[j][i][x] = 1;
+			}
+		}
+	//for (i = 0; i < size; i++) Êä³ö½á¹û
+	//{
+	//	for (j = 0; j < size; j++)
+	//	{
+	//		for (k = 0; k < size; k++)
+	//			cout << path[i][j][k] << "-";
+	//		cout << ">" << Wi[i][j] << "\t";
+	//	}
+	//	cout << endl;
+	//}
+}
 
 template<class T>
 void ListGraph<T>::Dijkstra(int v) {
@@ -99,6 +177,16 @@ void ListGraph<T>::Dijkstra(int v) {
 			}
 			p = p->next;
 		}
+	}
+	for (i = 0; i < this->vn; i++) {
+		j = i;
+		cout << "Path:" << j;
+		j = list[j];
+		while (j!=-1) {
+			cout << "->" << j;
+			j = list[j];
+		}
+		cout <<"\tlength:"<<length[i]<<endl;
 	}
 }
 
