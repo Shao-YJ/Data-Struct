@@ -24,6 +24,7 @@ public:
 	T Ve[MAXSIZE];
 	int Vr[MAXSIZE][MAXSIZE] = { 0 };
 	bool visited[MAXSIZE];
+	int topolist[MAXSIZE] = {0};
 
 	MatrixGraph(int t=1) { this->type = t; this->en = 0; }
 	void create();
@@ -53,38 +54,64 @@ public:
 	void Floyd();
 
 	void TopoSort();
+	void CriticalPath();
 };
+
+template<class T>
+void MatrixGraph<T>::CriticalPath(){
+	int i,j,v,size=this->vn;
+	int ve[MAXSIZE] = { 0 }, vl[MAXSIZE];
+	for (i = 0; i < size; i++) {
+		vl[i] = -1;
+		v = this->topolist[i];
+		for (j = 0; j < size; j++) 
+			if(this->Vr[v][j])
+				if (this->Vr[v][j] + ve[v] > ve[j] || ve[j] == 0)
+					ve[j] = this->Vr[v][j] + ve[v];
+	}
+	vl[size - 1] = ve[size - 1];
+	for (i = size-1; i >=0; i--) {
+		v = this->topolist[i];
+		for (j = 0; j < size; j++)
+			if (this->Vr[j][v])
+				if (vl[v]- this->Vr[j][v] < vl[j] || vl[j] == -1)
+					vl[j] = vl[v]- this->Vr[j][v];
+	}
+	for (i = 0; i < size; i++)
+		if (vl[this->topolist[i]] == ve[this->topolist[i]])
+			cout << this->topolist[i] << " ";
+}
 
 template<class T>
 void MatrixGraph<T>::TopoSort() {
 	int n = 0, r = 0, i, j, size = this->vn, p;
-	int topolist[MAXSIZE], ID[MAXSIZE] = { 0 };
+	int ID[MAXSIZE] = { 0 };
 	for (i = 0; i < size; i++) {
 		ID[i] = 0;
 		for (j = 0; j < size; j++) 
 			if (this->Vr[j][i])
 				ID[i]++;
 		if (ID[i] == 0)
-			topolist[r++]=i;
+			this->topolist[r++]=i;
 	}
 	if (r==0) {
 		cout << "No topolist";
 		return;
 	}
 	while (r > n) {
-		p = topolist[n++];
+		p = this->topolist[n++];
 		for (i = 0; i < size; i++)
 			if (this->Vr[p][i]) {
 				ID[i]--;
 				if (ID[i] == 0)
-					topolist[r++] = i;
+					this->topolist[r++] = i;
 			}
 	}
-	if (n < size)
-		cout << "There is a loop.";
-	else 
-		for (i = 0; i < size; i++)
-			cout << topolist[i] << " ";
+	//if (n < size)
+	//	cout << "There is a loop.";
+	//else 
+	//	for (i = 0; i < size; i++)
+	//		cout << this->topolist[i] << " ";
 }
 
 template<class T>
