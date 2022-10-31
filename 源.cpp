@@ -4,22 +4,14 @@
 
 int main() {
 
-	//Edge edge[20];
-	char list[9] = { 'a','b','c','d','e','f','g','h','g'};
-	MatrixGraph<char> graph(0);
-	graph.setVe(list,6);
-	graph.create();
-	graph.toString();
-	graph.TopoSort();
-	graph.CriticalPath();
-
-
-	//ListGraph<char> lgraph(list,6,0);
-	//lgraph.create();
-	//lgraph.toString();
-	//lgraph.TopoSort();
-
-	
+	BinaryTree<int> head(6);
+	head.lc = new BinaryTree<int>(2);
+	head.rc = new BinaryTree<int>(9);
+	//p=head.SearchT(9,t);
+	head.insertT(1);
+	head.insertT(4);
+	head.insertT(8);
+	head.deleteT(6);
 
 	return 0;
 }

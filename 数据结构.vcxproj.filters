@@ -25,6 +25,9 @@
     <Filter Include="头文件\Graph">
       <UniqueIdentifier>{5b60731e-581e-4880-ab91-19a50e3396f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Search">
+      <UniqueIdentifier>{79ccea30-3f4c-45e6-8ae1-ef3903d412aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="Graph\ListGraph.h">
       <Filter>头文件\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Search\Search.h">
+      <Filter>头文件\Search</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

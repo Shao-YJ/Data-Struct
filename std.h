@@ -18,4 +18,5 @@ using namespace std;
 #include"Tree/Tree.h"
 #include"Graph/MatrixGraph.h"
 #include"Graph/ListGraph.h"
+#include"Search/Search.h"
 #endif // !_STD_H
