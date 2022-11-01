@@ -128,4 +128,32 @@ int BinaryTree<T>::deleteT(T e) {
 	}
 	return 1;
 }
+
+template<class T>
+class BalanceTree {
+public:
+	T key;//ElemType *otherinfo
+	int bf;//结点的平衡因子
+	struct BalanceTree* lc;//左孩子指针
+	struct BalanceTree* rc; //右孩子指针
+	struct BalanceTree* parents;//双亲指针
+};
+
+//链地址法
+template<class T>
+struct LNode
+{
+	T key;//ElemType data
+	LNode* next;
+};
+
+template<class T>
+int SearchHashL(T key, LNode<T>* p){
+	int Hi = Hash(key);  //计算哈希地址
+	p = HashL[Hi].next;
+	while (p)
+		if (p.key = key) return 1;
+		else p = p.next;  //下一个关键字
+	return 0;
+} //SearchHashL算法结束
 #endif // !_SEARCH_H
