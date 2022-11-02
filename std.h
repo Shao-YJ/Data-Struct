@@ -19,4 +19,5 @@ using namespace std;
 #include"Graph/MatrixGraph.h"
 #include"Graph/ListGraph.h"
 #include"Search/Search.h"
+#include"Sort/Sort.h"
 #endif // !_STD_H

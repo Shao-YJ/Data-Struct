@@ -134,9 +134,9 @@ class BalanceTree {
 public:
 	T key;//ElemType *otherinfo
 	int bf;//结点的平衡因子
-	struct BalanceTree* lc;//左孩子指针
-	struct BalanceTree* rc; //右孩子指针
-	struct BalanceTree* parents;//双亲指针
+	BalanceTree* lc;//左孩子指针
+	BalanceTree* rc; //右孩子指针
+	BalanceTree* parents;//双亲指针
 };
 
 //链地址法
@@ -148,7 +148,10 @@ struct LNode
 };
 
 template<class T>
-int SearchHashL(T key, LNode<T>* p){
+int Hash(T key){}
+
+template<class T>
+int SearchHashL(T key, LNode<T>* p,LNode<T> HashL[]){
 	int Hi = Hash(key);  //计算哈希地址
 	p = HashL[Hi].next;
 	while (p)

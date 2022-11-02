@@ -154,6 +154,7 @@
     <ClInclude Include="List\List.h\Queue.h" />
     <ClInclude Include="List\List.h\Stack.h" />
     <ClInclude Include="Search\Search.h" />
+    <ClInclude Include="Sort\Sort.h" />
     <ClInclude Include="std.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Tree\Huffman.h" />

@@ -28,6 +28,9 @@
     <Filter Include="头文件\Search">
       <UniqueIdentifier>{79ccea30-3f4c-45e6-8ae1-ef3903d412aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Sort">
+      <UniqueIdentifier>{8cb350d9-4ff4-4e8d-a099-765bdbb0e22d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="Search\Search.h">
       <Filter>头文件\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Sort\Sort.h">
+      <Filter>头文件\Sort</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

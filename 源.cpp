@@ -4,14 +4,11 @@
 
 int main() {
 
-	BinaryTree<int> head(6);
-	head.lc = new BinaryTree<int>(2);
-	head.rc = new BinaryTree<int>(9);
-	//p=head.SearchT(9,t);
-	head.insertT(1);
-	head.insertT(4);
-	head.insertT(8);
-	head.deleteT(6);
+	int list[11] = {0,10,56,859,12,564,84,98,2463,849,4166}, i;
+	int delta[3] = { 5,3,1 };
+	SelectSort<int>(list, 10);
+	for (i = 1; i <= 10; i++)
+		cout << list[i] << " ";
 
 	return 0;
 }
