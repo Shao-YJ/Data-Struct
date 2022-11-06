@@ -155,7 +155,7 @@ void HeapSort(T L[], int n) {
 template<class T>
 void CountSort(T L[], int n) {
 	int min = INT_MAX, max = INT_MIN;
-	int i, j;
+	int i;
 	T* r = new T[n];
 	for (i = 1; i <= n; i++) {
 		if (L[i] < min)min = L[i];
@@ -173,6 +173,112 @@ void CountSort(T L[], int n) {
 	}
 	for (i = 0; i < n; i++)
 		L[i+1] = r[i];
-	delete s, r;
+	delete []s, r;
+}
+
+template<class T>
+void TreeSort(T L[],int n) {
+	int h = (int)(log(n) / log(2))+1;
+	int k = (int)pow(2, h) - 1, i, j,p;
+	int start=0, end=0;
+	T* tree = new T[long(k + n + 2)];
+	for (i = 1; i <= k; i++)
+		tree[i] = INT_MAX;
+	tree[k + n + 1] = INT_MAX;
+	for (i = k + 1; i <= k + n; i++)
+		tree[i] = L[i - k];
+
+	//构建完全二叉树
+	for (i = h; i >= 1; i--) {
+		start = (int)pow(2, i);
+		end = (int)pow(2, i + 1);
+		for (j = start; j < end && j <= k + n; j += 2) 
+			tree[j / 2] = tree[j] < tree[j + 1] ? tree[j] : tree[j + 1];
+	}
+
+	for (i = 1; i <= n; i++) {
+		cout << tree[1]<<" ";
+		j = 1;
+		while (tree[2 * j] == tree[1] || tree[2 * j + 1] == tree[1]) {
+			j *= 2;
+			if (tree[j] != tree[1])j++;
+		}
+		tree[j] = INT_MAX;
+		for (p = j; p > 1; p /= 2) {
+			if (p % 2)j = tree[p - 1];
+			else j = tree[p+1];
+			if (j < tree[p])tree[p / 2] = j;
+			else tree[p/ 2] = tree[p];
+		}
+	}
+}
+
+template<class T>
+class RadixNode {
+public:
+	T data;
+	T data1;//辅助变量
+	RadixNode* next;
+
+	RadixNode(T e1, T e2) {
+		data = e1;
+		data1 = e2;
+		next = NULL;
+	}
+	RadixNode() { data = 0; data1 = 0; this->next = NULL; }
+};
+
+template<class T>
+class RadixHead {
+public:
+	RadixNode<T> H[10];
+	RadixNode<T> R[10];
+};
+
+template<class T>
+void RadixSort(RadixNode<T>* L, int n) {
+	int radix = 10,i,j,k=0,l;
+	RadixNode<T>* p,*r;
+	RadixHead<T> head;
+	
+	p = L->next;
+	while (p) {
+		i = p->data;
+		j = 0;
+		while (i) {
+			i /= radix;
+			j++;
+		}
+		if (j > k)
+			k = j;
+		p = p->next;
+	}
+	for (l = 0; l < k; l++) {
+		head = RadixHead<T>();
+		p = L->next;
+		//分配算法
+		while (p) {
+			i = p->data1 % radix;
+			r = new RadixNode<T>(p->data, p->data1/radix);
+			if (!head.H[i].next)head.H[i].next = r;
+			else head.R[i].next->next = r;
+			head.R[i].next = r;
+			p = p->next;
+		}
+		//收集算法
+		j = 0;
+		while (!head.H[j].next)j++;
+		L->next = head.H[j].next;
+		for (i = j + 1; i < radix; i++) {
+			if (!head.H[i].next)continue;
+			head.R[j].next->next = head.H[i].next;
+			j = i;
+		}
+	}
+	p = L->next;
+	while (p) {
+		cout << p->data << " ";
+		p = p->next;
+	}
 }
 #endif // !_SORT_H
